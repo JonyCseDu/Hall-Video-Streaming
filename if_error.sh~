@@ -7,7 +7,8 @@ git reset --hard origin/master
 #git checkout master
 # reset your branch head to your previously detached commit
 git reset --hard
-git pull https://github.com/JonyCseDu/Hall-Video-Streaming.git
+
+git pull https://github.com/JonyCseDu/MovieCart.git
 git config --global push.default matching
 git config --global push.default simple
 
@@ -22,4 +23,4 @@ git config --global user.name "$name"
 
 echo "DONE"
 
-
+echo "DONE"
