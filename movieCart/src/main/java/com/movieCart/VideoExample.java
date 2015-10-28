@@ -35,7 +35,7 @@ import com.sun.jna.NativeLibrary;
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
 
-            mediaPlayerComponent.getMediaPlayer().playMedia("Ubuntu phone.mp4");
+            mediaPlayerComponent.getMediaPlayer().playMedia("rtp://@230.0.0.1:5555");
             
         }
     }
