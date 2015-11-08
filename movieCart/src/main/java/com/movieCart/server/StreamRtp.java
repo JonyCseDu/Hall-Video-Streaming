@@ -1,4 +1,4 @@
-package com.movieCart;
+package com.movieCart.server;
 
 /*
  * This file is part of VLCJ.
