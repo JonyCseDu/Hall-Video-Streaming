@@ -26,7 +26,7 @@ import uk.co.caprica.vlcj.player.headless.HeadlessMediaPlayer;
 /**
  * An example of how to stream a media file using RTP.
  * <p>
- * The client specifies an MRL of <code>rtp://@230.0.0.1:5555</code>
+ * The client specifies an MRL of <code>rtp://@127.0.0.1:5555</code>
  */
 public class StreamRtp {
 
@@ -39,7 +39,7 @@ public class StreamRtp {
         }
 
         String media = args[0];
-        String options = formatRtpStream("230.0.0.1", 5555);
+        String options = formatRtpStream("127.0.0.1", 5555);
 
         System.out.println("Streaming '" + media + "' to '" + options + "'");
 

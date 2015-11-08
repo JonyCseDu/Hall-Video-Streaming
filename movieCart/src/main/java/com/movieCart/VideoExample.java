@@ -24,6 +24,7 @@ import com.sun.jna.NativeLibrary;
         }
 
         private VideoExample() {
+        	//new Video();
             JFrame frame = new JFrame("vlcj Tutorial");
 
             mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
@@ -35,7 +36,7 @@ import com.sun.jna.NativeLibrary;
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
 
-            mediaPlayerComponent.getMediaPlayer().playMedia("rtp://@230.0.0.1:5555");
+            mediaPlayerComponent.getMediaPlayer().playMedia("rtp://@127.0.0.1:5555");
             
         }
     }
