@@ -16,7 +16,7 @@ import com.sun.jna.NativeLibrary;
 
     public class VideoExample {
 
-        private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
+        //private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
 
         public static void main(final String[] args) {
         	new NativeDiscovery().discover();
@@ -24,19 +24,19 @@ import com.sun.jna.NativeLibrary;
         }
 
         private VideoExample() {
-        	//new Video();
-            JFrame frame = new JFrame("vlcj Tutorial");
-
-            mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
-
-            frame.setContentPane(mediaPlayerComponent);
-
-            frame.setLocation(100, 100);
-            frame.setSize(500, 500);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-
-            mediaPlayerComponent.getMediaPlayer().playMedia("rtp://@127.0.0.1:5555");
+        	new Video("rtp://@127.0.0.1:5555");
+//            JFrame frame = new JFrame("vlcj Tutorial");
+//
+//            mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
+//
+//            frame.setContentPane(mediaPlayerComponent);
+//
+//            frame.setLocation(100, 100);
+//            frame.setSize(500, 500);
+//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//            frame.setVisible(true);
+//
+//            mediaPlayerComponent.getMediaPlayer().playMedia("rtp://@127.0.0.1:5555");
             
         }
     }
