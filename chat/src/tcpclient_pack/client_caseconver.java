@@ -59,10 +59,13 @@ public class client_caseconver extends Thread
 	  System.out.println("PORT :");
 	  int port = sc.nextInt();
 	  client c1 = new client();
+	  while(true){
+		  take_user_pas t = new take_user_pas() ;
+		  String message = t.get("Enter your message : ") ;
+		  c1.send(message);
+	  }
 	  
-	  take_user_pas t = new take_user_pas() ;
-	  String message = t.get("Enter your message : ") ;
 	  //send_message sm = new send_message() ;
-	  c1.send(message);
+	  
    }
 }
