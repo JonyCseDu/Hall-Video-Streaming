@@ -39,7 +39,7 @@ public class StreamRtp {
         }
 
         String media = args[0];
-        String options = formatRtpStream("127.0.0.1", 5555);
+        String options = formatRtpStream("10.42.0.47", 5555);
 
         System.out.println("Streaming '" + media + "' to '" + options + "'");
 

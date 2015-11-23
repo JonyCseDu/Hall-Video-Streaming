@@ -23,6 +23,7 @@ public class Video{
         frame.setContentPane(mediaPlayerComponent);
         
         btnPlaypause = new JButton("Play/Pause");
+        
         mediaPlayerComponent.add(btnPlaypause, BorderLayout.SOUTH);
         frame.setLocation(100, 100);
         frame.setSize(500, 500);
