@@ -1,5 +1,3 @@
-package com.movieCart.server;
-
 /*
  * This file is part of VLCJ.
  *
@@ -19,38 +17,34 @@ package com.movieCart.server;
  * Copyright 2009, 2010, 2011, 2012, 2013, 2014, 2015 Caprica Software Limited.
  */
 
+package com.movieCart.server;
 
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.headless.HeadlessMediaPlayer;
 
 /**
- * An example of how to stream a media file using RTP.
+ * An example of how to stream a media file using RTSP.
  * <p>
- * The client specifies an MRL of <code>rtp://@127.0.0.1:5555</code>
+ * The client specifies an MRL of <code>rtsp://@127.0.0.1:5555/demo</code>
  */
-public class StreamRtp {
+public class StreamRtsp {
 
     public static void main(String[] args) throws Exception {
     	args = new String[1];
     	args[0] = "Ubuntu phone.mp4";
-        if(args.length != 1) {
+    	if(args.length != 1) {
             System.out.println("Specify a single MRL to stream");
             System.exit(1);
         }
 
         String media = args[0];
-<<<<<<< HEAD
-        String options = formatRtpStream("10.42.0.47", 5555);
-=======
-        String ip = "10.42.0.61";
-        String options = formatRtpStream(ip, 5555);
->>>>>>> caabf06a1e07eb0b18eeb8b24c87075c0c333635
+        String ip = "192.168.0.135";
+        String options = formatRtspStream(ip, 5555, "demo");
 
         System.out.println("Streaming '" + media + "' to '" + options + "'");
 
         MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory(args);
         HeadlessMediaPlayer mediaPlayer = mediaPlayerFactory.newHeadlessMediaPlayer();
-
         mediaPlayer.playMedia(media,
             options,
             ":no-sout-rtp-sap",
@@ -58,19 +52,28 @@ public class StreamRtp {
             ":sout-all",
             ":sout-keep"
         );
+        
+        mediaPlayer.playMedia("movie.mp4", 
+        		  ":sout=#rtp{sdp=rtsp://@127.0.0.1:5555/demo}",
+        		  ":no-sout-rtp-sap", 
+        		  ":no-sout-standard-sap", 
+        		  ":sout-all", 
+        		  ":sout-keep"
+        		);
 
         // Don't exit
         Thread.currentThread().join();
     }
 
-    private static String formatRtpStream(String serverAddress, int serverPort) {
+    private static String formatRtspStream(String serverAddress, int serverPort, String id) {
         StringBuilder sb = new StringBuilder(60);
-        sb.append(":sout=#rtp{dst=");
+        sb.append(":sout=#rtp{sdp=rtsp://@");
         sb.append(serverAddress);
-        sb.append(",port=");
+        sb.append(':');
         sb.append(serverPort);
-        sb.append(",mux=ts}");
+        sb.append('/');
+        sb.append(id);
+        sb.append("}");
         return sb.toString();
     }
 }
-
