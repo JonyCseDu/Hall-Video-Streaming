@@ -7,6 +7,8 @@ import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Video{
 	private String url;
@@ -22,8 +24,12 @@ public class Video{
         mediaPlayerComponent.getVideoSurface().setForeground(Color.GRAY);
         frame.setContentPane(mediaPlayerComponent);
         
-        btnPlaypause = new JButton("Play/Pause");
-        
+        btnPlaypause = new JButton("play_pause");
+        btnPlaypause.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        	}
+        });
         mediaPlayerComponent.add(btnPlaypause, BorderLayout.SOUTH);
         frame.setLocation(100, 100);
         frame.setSize(500, 500);

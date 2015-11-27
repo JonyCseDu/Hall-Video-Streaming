@@ -39,25 +39,31 @@ public class StreamRtp {
         }
 
         String media = args[0];
-<<<<<<< HEAD
-        String options = formatRtpStream("10.42.0.47", 5555);
-=======
-        String ip = "10.42.0.61";
-        String options = formatRtpStream(ip, 5555);
->>>>>>> caabf06a1e07eb0b18eeb8b24c87075c0c333635
+        //String options = formatRtpStream("10.42.0.47", 5555);
+        String ip = "localhost";
+        String options[] = {formatRtpStream(ip, 5555)};
+        /*
+         * 										, 
+        					":no-sout-rtp-sap", 
+        					":no-sout-standard-sap",
+        					":sout-all",
+                			":sout-keep"
+         */
+                			
 
         System.out.println("Streaming '" + media + "' to '" + options + "'");
 
         MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory(args);
         HeadlessMediaPlayer mediaPlayer = mediaPlayerFactory.newHeadlessMediaPlayer();
-
-        mediaPlayer.playMedia(media,
-            options,
-            ":no-sout-rtp-sap",
-            ":no-sout-standard-sap",
-            ":sout-all",
-            ":sout-keep"
-        );
+        
+        mediaPlayer.setStandardMediaOptions();
+        mediaPlayer.playMedia(media, options);
+        
+        mediaPlayer.setPause(true);
+        mediaPlayer.setRepeat(true);
+        
+        mediaPlayer.pause();
+        System.out.println(mediaPlayer.canPause());
 
         // Don't exit
         Thread.currentThread().join();
