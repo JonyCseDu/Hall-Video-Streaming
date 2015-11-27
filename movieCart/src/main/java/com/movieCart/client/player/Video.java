@@ -3,7 +3,7 @@ package com.movieCart.client.player;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-import com.movieCart.client.clientManager.ClientManager;
+import com.movieCart.client.ClientManager;
 
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
@@ -21,7 +21,7 @@ public class Video{
 	
 	public Video(final String media){
 		clientManager = new ClientManager();
-		url = clientManager.start();
+		url = clientManager.start(media);
 		
 		frame = new JFrame("MovieCart");
         mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
