@@ -3,6 +3,8 @@ package com.movieCart.client.player;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import com.movieCart.client.clientManager.ClientManager;
+
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 import java.awt.BorderLayout;
@@ -11,15 +13,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Video{
-	private String url;
 	private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
 	JFrame frame;
 	private JButton btnPlaypause;
+	ClientManager clientManager;
+	String url;
 	
-	public Video(String url){
-		this.url = url;
+	public Video(final String media){
+		clientManager = new ClientManager();
+		url = clientManager.start();
 		
-		frame = new JFrame("vlcj Tutorial");
+		frame = new JFrame("MovieCart");
         mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
         mediaPlayerComponent.getVideoSurface().setForeground(Color.GRAY);
         frame.setContentPane(mediaPlayerComponent);
@@ -27,7 +31,7 @@ public class Video{
         btnPlaypause = new JButton("play_pause");
         btnPlaypause.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		
+        		clientManager.playPauseRequest(media);
         	}
         });
         mediaPlayerComponent.add(btnPlaypause, BorderLayout.SOUTH);
@@ -36,9 +40,10 @@ public class Video{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         
-        play();
+        playWindow();
+        System.out.println("end");
 	}
-	public void play(){
+	public void playWindow(){
 		System.out.println(url);
 		mediaPlayerComponent.getMediaPlayer().playMedia(url);
 	}

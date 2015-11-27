@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import javax.naming.ldap.StartTlsRequest;
 
+import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.condition.conditions.PausedCondition;
 import uk.co.caprica.vlcj.player.condition.conditions.PlayingCondition;
 import uk.co.caprica.vlcj.player.headless.HeadlessMediaPlayer;
@@ -17,19 +18,57 @@ import uk.co.caprica.vlcj.player.headless.HeadlessMediaPlayer;
 class Streaming{
 	Socket socket;
 	HeadlessMediaPlayer mediaPlayer;
+	String ip;
 	
-	public Streaming(Socket socket) {
+	public Streaming(Socket socket, String media) {
 		this.socket = socket;
+		start(media);
+		
 	}
 	
-	void start(String name){
-		
+	void start(String media){
+        ip = "localhost";
+        
+        /*
+          										, 
+        					":no-sout-rtp-sap", 
+        					":no-sout-standard-sap",
+        					":sout-all",
+                			":sout-keep"
+         */
+                			
+
+        
+
+        MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory(media);
+        mediaPlayer = mediaPlayerFactory.newHeadlessMediaPlayer();
+        
+        //mediaPlayer.setStandardMediaOptions();
+        
+        
+        //mediaPlayer.setPause(true);
+        mediaPlayer.setRepeat(true);
+        
+        //mediaPlayer.pause();
+        //System.out.println(mediaPlayer.canPause());
+
+        // Don't exit
+        System.out.println("started successfully");
+
 	}
 	void stop(){
 		
 	}
-	void play(){
-		
+	void play(String media){
+		String options[] = {formatRtpStream(ip, 5555)};
+		mediaPlayer.playMedia(media, options);
+		System.out.println("Streaming '" + media + "' to '" + options + "'");
+		try {
+			Thread.currentThread().join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	void pause(){
 		
@@ -37,7 +76,15 @@ class Streaming{
 	void seek(){
 		
 	}
-	
+	private static String formatRtpStream(String serverAddress, int serverPort) {
+        StringBuilder sb = new StringBuilder(60);
+        sb.append(":sout=#rtp{dst=");
+        sb.append(serverAddress);
+        sb.append(",port=");
+        sb.append(serverPort);
+        sb.append(",mux=ts}");
+        return sb.toString();
+    }
 }
 
 class Reader extends Thread{
@@ -56,10 +103,16 @@ class Reader extends Thread{
 		//READING FROM SOCKET
 		String tmp;
 		try {
-			while ((tmp = streamReader.readLine()) != null) {
+			//while ((tmp = streamReader.readLine()) != null) {
+				tmp = streamReader.readLine();
 				System.out.println("recieved : " + tmp);
 				// DO SOME JOB
-			}
+			//}
+			
+			Streaming streaming = new Streaming(socket, tmp);
+			streaming.start(tmp);
+			streaming.play(tmp);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,7 +163,7 @@ public class ServerManager{
 		// close serversocket
 		try {
 			serverSocket.close();
-		} catch (IOException e) {
+		} catch (IOException e){
 			e.printStackTrace();
 		}
 	}
