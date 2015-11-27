@@ -9,6 +9,7 @@ import java.net.SocketTimeoutException;
 import java.util.Scanner;
 
 import javax.naming.ldap.StartTlsRequest;
+import javax.sound.sampled.Port;
 
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.condition.conditions.PausedCondition;
@@ -60,7 +61,13 @@ class Streaming{
 		
 	}
 	void play(String media){
-		String options[] = {formatRtpStream(ip, 5555)};
+		String ip = socket.getInetAddress().toString().substring(1);
+		int port = socket.getPort();
+		
+		System.out.println(ip);
+		System.out.println(port);
+		
+		String options[] = {formatRtpStream(ip, port)};
 		mediaPlayer.playMedia(media, options);
 		System.out.println("Streaming '" + media + "' to '" + options + "'");
 		try {

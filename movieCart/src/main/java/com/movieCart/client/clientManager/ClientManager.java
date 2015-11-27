@@ -18,11 +18,13 @@ public class ClientManager {
 	int serverPort = 7100;
 	Socket clientSocket;
 	static PrintWriter streamWriter;
-	boolean isStarted = false;
-	boolean isplaying = false;
+	boolean isStarted;
+	boolean isplaying;
 	
 	public ClientManager(){
 		new NativeDiscovery().discover();
+		isStarted = false;
+		isplaying = false;
 	}
 	
 	public void playPauseRequest(String media){
@@ -65,8 +67,11 @@ public class ClientManager {
 		}
 		//"rtp://@127.0.0.1:5555"
 		String url = "rtp://@";
-		url += clientSocket.getInetAddress() + ":" + clientSocket.getLocalPort();
-		url = "rtp://@127.0.0.1:5555";
+		String ip = clientSocket.getLocalAddress().toString().substring(1);
+		int port = clientSocket.getLocalPort();
+		url += ip + ":" + port;
+		System.out.println(url);
+		//url = "rtp://@127.0.0.1:5555";
 		return url;
 	}
 	
