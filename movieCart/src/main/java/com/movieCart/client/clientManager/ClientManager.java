@@ -14,7 +14,7 @@ import com.movieCart.client.player.Video;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 public class ClientManager {
-	String serverIp = "localhost";
+	String serverIp = "127.0.0.1";
 	int serverPort = 7100;
 	Socket clientSocket;
 	static PrintWriter streamWriter;
@@ -68,6 +68,7 @@ public class ClientManager {
 		//"rtp://@127.0.0.1:5555"
 		String url = "rtp://@";
 		String ip = clientSocket.getLocalAddress().toString().substring(1);
+	
 		int port = clientSocket.getLocalPort();
 		url += ip + ":" + port;
 		System.out.println(url);
