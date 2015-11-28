@@ -16,125 +16,6 @@ import uk.co.caprica.vlcj.player.condition.conditions.PausedCondition;
 import uk.co.caprica.vlcj.player.condition.conditions.PlayingCondition;
 import uk.co.caprica.vlcj.player.headless.HeadlessMediaPlayer;
 
-class Streaming{
-	Socket socket;
-	HeadlessMediaPlayer mediaPlayer;
-	String ip;
-	
-	public Streaming(Socket socket, String media) {
-		this.socket = socket;
-		start(media);
-		
-	}
-	
-	void start(String media){
-        ip = "localhost";
-        
-        /*
-          										, 
-        					":no-sout-rtp-sap", 
-        					":no-sout-standard-sap",
-        					":sout-all",
-                			":sout-keep"
-         */
-                			
-
-        
-
-        MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory(media);
-        mediaPlayer = mediaPlayerFactory.newHeadlessMediaPlayer();
-        
-        //mediaPlayer.setStandardMediaOptions();
-        
-        
-        //mediaPlayer.setPause(true);
-        mediaPlayer.setRepeat(true);
-        
-        //mediaPlayer.pause();
-        //System.out.println(mediaPlayer.canPause());
-
-        // Don't exit
-        System.out.println("started successfully");
-
-	}
-	void stop(){
-		
-	}
-	void play(String media){
-		String ip = socket.getInetAddress().toString().substring(1);
-		int port = socket.getPort();
-		
-		System.out.println(ip);
-		System.out.println(port);
-		
-		String options[] = {formatRtpStream(ip, port)};
-		mediaPlayer.playMedia(media, options);
-		System.out.println("Streaming '" + media + "' to '" + options + "'");
-		try {
-			Thread.currentThread().join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	void pause(){
-		
-	}
-	void seek(){
-		
-	}
-	private static String formatRtpStream(String serverAddress, int serverPort) {
-        StringBuilder sb = new StringBuilder(60);
-        sb.append(":sout=#rtp{dst=");
-        sb.append(serverAddress);
-        sb.append(",port=");
-        sb.append(serverPort);
-        sb.append(",mux=ts}");
-        return sb.toString();
-    }
-}
-
-class Reader extends Thread{
-	Socket socket;
-	BufferedReader streamReader;
-	public Reader(Socket socket) {
-		this.socket = socket;
-		try {
-			streamReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	public void run(){
-		//READING FROM SOCKET
-		String tmp;
-		try {
-			//while ((tmp = streamReader.readLine()) != null) {
-				tmp = streamReader.readLine();
-				System.out.println("recieved : " + tmp);
-				// DO SOME JOB
-			//}
-			
-			Streaming streaming = new Streaming(socket, tmp);
-			streaming.start(tmp);
-			streaming.play(tmp);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("finished");
-		//CLOSING STREAM READER
-		try {
-			streamReader.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-}
-
 public class ServerManager{
 	int serverPort;
 	ServerSocket serverSocket;
@@ -158,6 +39,8 @@ public class ServerManager{
 				Socket rcvedSocket = serverSocket.accept();
 				System.out.println("ip :" + rcvedSocket.getRemoteSocketAddress() + " port: " + rcvedSocket.getLocalPort());
 				new Reader(rcvedSocket).start();
+				
+				
 			}catch(SocketTimeoutException e){
 				if(isFinished) break;
 				System.out.println("timeout\n");

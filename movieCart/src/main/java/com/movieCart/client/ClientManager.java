@@ -1,4 +1,4 @@
-package com.movieCart.client.clientManager;
+package com.movieCart.client;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,36 +24,26 @@ public class ClientManager {
 	public ClientManager(){
 		new NativeDiscovery().discover();
 		isStarted = false;
-		isplaying = false;
+		isplaying = true;
 	}
 	
 	public void playPauseRequest(String media){
-		if(!isStarted) start();
 		if(!isplaying) play(media);
 		else pause(media);
 	}
 	private void play(String media){
 		isplaying = true;
-		streamWriter.println(media);
+		streamWriter.println("play");
 		streamWriter.flush();
-		System.out.println("playing");
+		System.out.println("play clicked");
 	}
-	private void pause(String media){
+	public void pause(String media){
 		isplaying = false;
-		streamWriter.println("pause : Ubuntu phone.mp4");
+		streamWriter.println("pause");
 		streamWriter.flush();
+		System.out.println("pause clicked");
 	}
-	public void stop(){
-		isStarted = false;
-		streamWriter.close();
-		try {
-			clientSocket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	public String start(){
+	public String start(String media){
 		isStarted = true;
 		try {
 			clientSocket = new Socket(serverIp, serverPort);
@@ -66,6 +56,12 @@ public class ClientManager {
 			e.printStackTrace();
 		}
 		//"rtp://@127.0.0.1:5555"
+		
+		// send media url to server
+		streamWriter.println(media);
+		streamWriter.flush();
+		
+		// generate url for client's stream play
 		String url = "rtp://@";
 		String ip = clientSocket.getLocalAddress().toString().substring(1);
 	
@@ -75,6 +71,17 @@ public class ClientManager {
 		//url = "rtp://@127.0.0.1:5555";
 		return url;
 	}
+	public void stop(){
+		isStarted = false;
+		streamWriter.close();
+		try {
+			clientSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	
 	public static void main(String[] args) throws UnknownHostException, IOException{

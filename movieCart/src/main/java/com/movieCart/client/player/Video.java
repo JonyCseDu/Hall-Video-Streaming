@@ -2,8 +2,13 @@ package com.movieCart.client.player;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+<<<<<<< HEAD
 import javax.swing.Timer;
 import com.movieCart.client.clientManager.ClientManager;
+=======
+
+import com.movieCart.client.ClientManager;
+>>>>>>> 867b406f45aee398c92888daa27d5948d309ca51
 
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
@@ -24,7 +29,7 @@ public class Video extends JFrame{
 	
 	public Video(final String media){
 		clientManager = new ClientManager();
-		url = clientManager.start();
+		url = clientManager.start(media);
 		
 		frame = new JFrame("MovieCart");
         mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
