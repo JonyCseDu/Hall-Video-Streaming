@@ -30,8 +30,17 @@ class Reader extends Thread{
 				else if(command.equals("pause")){
 					streaming.pause();
 				}
+				else if(command.equals("stop")){
+					streaming.stop();
+				}
+				else if(command.charAt(0) >= '0' && command.charAt(0) <= '9'){
+					//command.
+					System.out.println("got : " + Integer.parseInt(command));
+					streaming.seek(Integer.parseInt(command));
+				}
 				else{
 					streaming = new StreamingPlayer(socket, command);
+					System.out.println(socket);
 					streaming.start(command);
 				}
 			}

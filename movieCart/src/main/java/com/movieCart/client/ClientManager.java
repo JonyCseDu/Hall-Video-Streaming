@@ -58,6 +58,7 @@ public class ClientManager {
 		//"rtp://@127.0.0.1:5555"
 		
 		// send media url to server
+		//final String tmp = media;
 		streamWriter.println(media);
 		streamWriter.flush();
 		
@@ -73,13 +74,22 @@ public class ClientManager {
 	}
 	public void stop(){
 		isStarted = false;
-		streamWriter.close();
+		streamWriter.println("stop");
+		streamWriter.flush();
+		System.out.println("stop clicked");
+		
+		//streamWriter.close();
 		try {
 			clientSocket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
+	}
+	public void seek(int time){
+		streamWriter.println(time);
+		streamWriter.flush();
+		System.out.println("seeking");
 	}
 	
 	

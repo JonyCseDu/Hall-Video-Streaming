@@ -31,7 +31,7 @@ class StreamingPlayer{
 		System.out.println(port);
 
         mediaPlayer.startMedia(media, formatRtpStream(ip, port));
-        mediaPlayer.setRepeat(true);
+        //mediaPlayer.setRepeat(true);
         System.out.println("started successfully");
 
 	}
@@ -45,11 +45,13 @@ class StreamingPlayer{
 		mediaPlayer.pause();
 		System.out.println("server paused");
 	}
-	void seek(){
-		
+	void seek(int time) throws InterruptedException{
+		Thread.sleep(100);
+		mediaPlayer.setPosition(time);
+		System.out.println("server seeking : " + time);
 	}
 	void stop(){
-		
+		mediaPlayer.stop();
 	}
 	
 	private static String formatRtpStream(String serverAddress, int serverPort) {
