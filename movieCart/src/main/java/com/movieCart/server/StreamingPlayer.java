@@ -48,6 +48,7 @@ class StreamingPlayer{
 	void seek(int time) throws InterruptedException{
 		Thread.sleep(100);
 		mediaPlayer.setTime(time);
+		System.out.println("isSeekable : " + mediaPlayer.isSeekable());
 		//mediaPlayer.setPosition(time);
 		//mediaPlayer.play();
 		

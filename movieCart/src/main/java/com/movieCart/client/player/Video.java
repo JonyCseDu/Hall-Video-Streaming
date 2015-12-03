@@ -57,19 +57,12 @@ public class Video{
         
         //////////////////////////////
         
-        JPanel bottomPanel = new JPanel();
+        JPanel bottomPanel = new JPanel(); // for adding play and stop button
+        JPanel rightBottomPanel = new JPanel(); // for slider
         bottomPanel.setLayout(new BorderLayout());
-        
-//        JPanel leftBottomPanel = new JPanel();
-//        bottomPanel.setLayout(new FlowLayout());
-        
-        JPanel rightBottomPanel = new JPanel();
         rightBottomPanel.setLayout(new GridLayout(1, 1));
-        
-//        bottomPanel.setLayout(null);
-//        leftBottomPanel.setLayout(null);
-//        rightBottomPanel.setLayout(null);
-        
+
+        //play/pause button
         JButton btnPlay = new JButton("Play");
         btnPlay.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -78,6 +71,9 @@ public class Video{
         	}
         });
         btnPlay.setToolTipText("play/pause");
+        bottomPanel.add(btnPlay, BorderLayout.WEST);
+        
+        // stop/start button
         JButton btnStop = new JButton("Stop");
         btnStop.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
@@ -87,24 +83,11 @@ public class Video{
         	}
         });
         btnStop.setToolTipText("Stop");
-        bottomPanel.add(btnPlay, BorderLayout.WEST);
         bottomPanel.add(btnStop, BorderLayout.EAST);
-        //leftBottomPanel.add(btnPlay);
-        //leftBottomPanel.add(btnStop);
         
+        //adding slider
         sliderSeeker = new JSlider();
         sliderSeeker.setToolTipText("Seek");
-//        sliderSeeker.addChangeListener(new ChangeListener() {
-//			public void stateChanged(ChangeEvent e) {
-//				time = sliderSeeker.getValue();
-//				//System.out.println("time : " + time);
-//				if(time-pre > 500) seek(time);
-//				pre = time;
-//			}
-//		});
-        
-        //////////////////////////////////////////
-        
         sliderSeeker.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -114,29 +97,23 @@ public class Video{
             @Override
             public void mouseReleased(MouseEvent e) {
             	//time = sliderSeeker.getValue();
-            	time += 1000;
+            	time = sliderSeeker.getValue();
                 seek(time);
                 play();
             }
         });
-        
-        
-        ///////////////////////////////////////////
-        
-        
-        
-        //sliderSeeker.addMouseListener();
         rightBottomPanel.add(sliderSeeker);
         
         //bottomPanel.add(leftBottomPanel);
         bottomPanel.add(rightBottomPanel, BorderLayout.CENTER);
         frame.getContentPane().add(bottomPanel, BorderLayout.SOUTH);
-        ///////////////////////////////
+        
+     
         frame.setVisible(true);
         start(media);
-        System.out.println("end");
 	}
-	int time = 0, pre = 0;
+	
+	int time = 0;
 	ActionListener timerActionListener = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			if(time == 90*1000){
@@ -154,12 +131,9 @@ public class Video{
 		mediaPlayer.playMedia(url);
 		isStarted = true;
 		isplaying = true;
-		timer = new Timer(1, timerActionListener);
-		timer.setInitialDelay(0);
-		timer.start();
-		time = 0;
-		sliderSeeker.setMaximum(90*1000);
-		sliderSeeker.setValue(time);
+		
+		startTimer();
+		
 	}
 	private void play(){
 		isplaying = true;
@@ -174,26 +148,30 @@ public class Video{
 	}
 	private void stop(){
 		isStarted = false;
-		mediaPlayer.stop();
 		clientManager.stop();
+		mediaPlayer.stop();
 		timer.stop();
 		sliderSeeker.setValue(0);
 	}
 	private void seek(int time){
-		//time = this.time + 1000;
 		System.out.println("seek : " + time);
-		//mediaPlayer.setPosition(time);
+		mediaPlayer.setPosition(time);
 		mediaPlayer.setTime(time);
-		//clientManager.seek(time);
+		clientManager.seek(time);
 		try {
-			Thread.sleep(5000);
+			Thread.sleep(10000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		timer.stop();
 	}
 	private void startTimer(){
-		
+		timer = new Timer(1, timerActionListener);
+		timer.setInitialDelay(0);
+		timer.start();
+		time = 0;
+		sliderSeeker.setMaximum(90*1000);
+		sliderSeeker.setValue(time);
 	}
 }
 

@@ -1,6 +1,8 @@
 package com.movieCart.client;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.NetworkInterface;
 import java.net.Socket;
@@ -18,6 +20,7 @@ public class ClientManager {
 	int serverPort = 7100;
 	Socket clientSocket;
 	static PrintWriter streamWriter;
+	BufferedReader streamReader;
 	boolean isStarted;
 	boolean isplaying;
 	
@@ -27,27 +30,12 @@ public class ClientManager {
 		isplaying = true;
 	}
 	
-	public void playPauseRequest(String media){
-		if(!isplaying) play(media);
-		else pause(media);
-	}
-	private void play(String media){
-		isplaying = true;
-		streamWriter.println("play");
-		streamWriter.flush();
-		System.out.println("play clicked");
-	}
-	public void pause(String media){
-		isplaying = false;
-		streamWriter.println("pause");
-		streamWriter.flush();
-		System.out.println("pause clicked");
-	}
 	public String start(String media){
 		isStarted = true;
 		try {
 			clientSocket = new Socket(serverIp, serverPort);
 			streamWriter = new PrintWriter(clientSocket.getOutputStream());
+			streamReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,12 +43,19 @@ public class ClientManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//"rtp://@127.0.0.1:5555"
 		
-		// send media url to server
-		//final String tmp = media;
 		streamWriter.println(media);
 		streamWriter.flush();
+		
+		// reading ack
+		try {
+			String ack = streamReader.readLine();
+			System.out.println("ACK : " + ack);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		// generate url for client's stream play
 		String url = "rtp://@";
@@ -78,40 +73,39 @@ public class ClientManager {
 		streamWriter.flush();
 		System.out.println("stop clicked");
 		
-		//streamWriter.close();
+		// reading ack
 		try {
+			String ack = streamReader.readLine();
+			System.out.println("ACK : " + ack);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		// close sokcet and streams
+		try {
+			streamWriter.close();
+			streamReader.close();
 			clientSocket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
+	
 	public void seek(int time){
+		// writing seek request in stream
 		streamWriter.println(time);
 		streamWriter.flush();
+		// reading ack
+		try {
+			String ack = streamReader.readLine();
+			System.out.println("ACK : " + ack);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("seeking");
-	}
-	
-	
-	
-	public static void main(String[] args) throws UnknownHostException, IOException{
-		ClientManager client = new ClientManager();
-		Scanner scanner = new Scanner(System.in);
-		String mString;
-//		while(true){
-//			mString = scanner.nextLine();
-//			streamWriter.println(mString);
-//			streamWriter.flush();
-//			if(mString.equals("exit")) break;
-//		}
-		
-		streamWriter.println("Ubuntu phone.mp4");
-		streamWriter.flush();
-		streamWriter.close();
-		
-		mString = "rtp://@127.0.0.1:5555";
-		new Video(mString);
-		
 	}
 }
 
