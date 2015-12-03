@@ -113,7 +113,8 @@ public class Video{
 
             @Override
             public void mouseReleased(MouseEvent e) {
-            	time = sliderSeeker.getValue();
+            	//time = sliderSeeker.getValue();
+            	time += 1000;
                 seek(time);
                 play();
             }
@@ -179,9 +180,11 @@ public class Video{
 		sliderSeeker.setValue(0);
 	}
 	private void seek(int time){
+		//time = this.time + 1000;
 		System.out.println("seek : " + time);
-		mediaPlayer.setPosition(time);
-		clientManager.seek(time);
+		//mediaPlayer.setPosition(time);
+		mediaPlayer.setTime(time);
+		//clientManager.seek(time);
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
