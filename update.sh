@@ -13,6 +13,8 @@ do
 
 	if [ $com == "push" ]
 	then
+		echo "PULLING DATA FROM REMOTE"
+		git pull https://github.com/JonyCseDu/MovieCart.git
 		echo "PUSHING ALL FILES TO REMOTE(MASTER)"
 		git add -A
 		read -p "Enter Commit Message: " msg
