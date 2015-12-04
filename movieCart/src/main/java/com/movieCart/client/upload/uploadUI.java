@@ -1,17 +1,26 @@
 package com.movieCart.client.upload;
 
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.HeadlessException;
+import java.awt.Image;
 import java.nio.channels.NonWritableChannelException;
 
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 class FileChooser extends JFrame{
@@ -27,13 +36,22 @@ class FileChooser extends JFrame{
 	}
 }
 
-public class uploadUI extends JFrame {
+public class uploadUI extends JFrame  {
 	private JTextField key;
 	private JTextField imageUrl;
 	private JTextField videoUrl;
-	public uploadUI(){
+	private Image backgroundImage;
+	public uploadUI() throws HeadlessException, IOException {
 		super("UPLOAD");
 		setSize(600, 200);
+		//getContentPane().setBackground(Color.WHITE);/home/sayed/Downloads/
+		backgroundImage = ImageIO.read(new File("images.jpg"));
+		 setContentPane(new JPanel(new BorderLayout()) {
+		        @Override public void paintComponent(Graphics g) {
+		            g.drawImage(backgroundImage, 0, 0,1500,1000, null);
+		        }
+		    });
+		((JComponent) getContentPane()).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));  
 		getContentPane().setLayout(new GridLayout(4, 1, 20, 20));
 		JPanel keyPanel = new JPanel();
 		JPanel imagePanel = new JPanel();
@@ -98,7 +116,7 @@ public class uploadUI extends JFrame {
 		setVisible(true);
 	}
 	
-	public static void main(String[] args){
+	public static void main(String[] args) throws HeadlessException, IOException{
 		new uploadUI();
 	}
 }
