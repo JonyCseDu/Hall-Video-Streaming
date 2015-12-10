@@ -18,23 +18,17 @@ import java.awt.Image;
 import java.nio.channels.NonWritableChannelException;
 
 import javax.swing.JTextField;
+
+import com.movieCart.Objects.UploadPacket;
+
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
-
-class FileChooser extends JFrame{
-	public FileChooser(String name){
-		super(name);
-		JFileChooser chooser = new JFileChooser();
-		chooser.setFileHidingEnabled(false);
-		add(chooser);
-		
-		pack();
-		setVisible(true);
-		
-	}
-}
 
 public class uploadUI extends JFrame  {
 	private JTextField key;
@@ -43,16 +37,24 @@ public class uploadUI extends JFrame  {
 	private Image backgroundImage;
 	public uploadUI() throws HeadlessException, IOException {
 		super("UPLOAD");
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 200);
+		
+		// setting background
+		
 		//getContentPane().setBackground(Color.WHITE);/home/sayed/Downloads/
-		backgroundImage = ImageIO.read(new File("images.jpg"));
+		backgroundImage = ImageIO.read(new File("back.jpg"));
 		 setContentPane(new JPanel(new BorderLayout()) {
 		        @Override public void paintComponent(Graphics g) {
-		            g.drawImage(backgroundImage, 0, 0,1500,1000, null);
+		            g.drawImage(backgroundImage, 0, 0, 1500,1000, null);
 		        }
 		    });
 		((JComponent) getContentPane()).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));  
 		getContentPane().setLayout(new GridLayout(4, 1, 20, 20));
+		
+		// panels setting
+
 		JPanel keyPanel = new JPanel();
 		JPanel imagePanel = new JPanel();
 		JPanel videoPanel = new JPanel();
@@ -61,54 +63,125 @@ public class uploadUI extends JFrame  {
 		keyPanel.setLayout(new BorderLayout());
 		imagePanel.setLayout(new BorderLayout());
 		videoPanel.setLayout(new BorderLayout());
-		//submitPanel.setLayout(new BorderLayout());
+		submitPanel.setLayout(new BorderLayout());
 		
 		getContentPane().add(keyPanel, BorderLayout.CENTER);
 		getContentPane().add(imagePanel, BorderLayout.CENTER);
 		getContentPane().add(videoPanel, BorderLayout.CENTER);
 		getContentPane().add(submitPanel, BorderLayout.CENTER);
 		
+		// key text
+		
 		key = new JTextField();
+		key.addFocusListener(new FocusListener() {
+			
+			public void focusLost(FocusEvent e) {
+				if(key.getText().length() == 0) key.setText("Search Key");
+				
+			}
+			
+			public void focusGained(FocusEvent e) {
+				if(true) key.setText("");
+				
+			}
+		});
+		
 		key.setToolTipText("Search Key");
 		key.setText("Search Key");
 		key.setSize(600, 50);
 		keyPanel.add(key, BorderLayout.CENTER);
 		key.setColumns(50);
 		
+		// poster
+		
 		imageUrl = new JTextField();
-		imageUrl.setToolTipText("Choose Poster");
-		imageUrl.setText("Choose Poster");
+		imageUrl.setToolTipText("Poster Url");
+		imageUrl.setText("Poster Url");
 		imageUrl.setSize(450, 50);
 		imagePanel.add(imageUrl, BorderLayout.CENTER);
 		imageUrl.setColumns(50);
 		
+		imageUrl.addFocusListener(new FocusListener() {
+			
+			public void focusLost(FocusEvent e) {
+				if(imageUrl.getText().length() == 0) imageUrl.setText("Poster Url");
+			}
+			
+			public void focusGained(FocusEvent e) {
+				if(true) imageUrl.setText("");
+			}
+		});
+		
 		JButton imageChoser = new JButton("choose");
 		imageChoser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new FileChooser("Choose Image");
+				JFileChooser chooser = new JFileChooser();
+				chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				chooser.setFileHidingEnabled(false);
+				chooser.showSaveDialog(null);
+				String path="Poster Url";
+				try{
+					path = chooser.getSelectedFile().getAbsolutePath();
+					String filename = chooser.getSelectedFile().getName();
+				}catch(NullPointerException ex){
+					//ex.printStackTrace();
+				}
+				imageUrl.setText(path);
 			}
 		});
 		imageChoser.setToolTipText("Poster Choose");
 		imagePanel.add(imageChoser, BorderLayout.EAST);
 		
-		
+		// video
 		videoUrl = new JTextField();
-		videoUrl.setToolTipText("choose video");
-		videoUrl.setText("Choose video");
+		videoUrl.setToolTipText("Video Url");
+		videoUrl.setText("Video Url");
 		videoUrl.setSize(500, 50);
 		videoPanel.add(videoUrl, BorderLayout.CENTER);
 		videoUrl.setColumns(50);
 		
+		videoUrl.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {
+				if(videoUrl.getText().length() == 0) videoUrl.setText("Video Url");
+				
+			}
+			public void focusGained(FocusEvent e) {
+				if(true) videoUrl.setText("");
+			}
+		});
+		
 		JButton videoChooser = new JButton("choose");
 		videoChooser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new FileChooser("Choose Video");
+				JFileChooser chooser = new JFileChooser();
+				chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				chooser.setFileHidingEnabled(false);
+				chooser.showSaveDialog(null);
+				String path="Video Url";
+				try{
+					path = chooser.getSelectedFile().getAbsolutePath();
+					String filename = chooser.getSelectedFile().getName();
+				}catch(NullPointerException ex){
+					//ex.printStackTrace();
+				}
+				videoUrl.setText(path);
 			}
 		});
 		videoChooser.setToolTipText("choose");
 		videoPanel.add(videoChooser, BorderLayout.EAST);
 		
+		// upload button
+		
 		JButton upload = new JButton("UPLOAD");
+		upload.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UploadPacket uploadPacket = new UploadPacket(key.getText(),
+						imageUrl.getText(), videoUrl.getText());
+				
+				
+				uploadPacket.write();
+			}
+		});
 		upload.setToolTipText("upload");
 		submitPanel.add(upload);
 		
