@@ -1,11 +1,12 @@
 package com.movieCart.Objects;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class BinaryObject {
+public class BinaryObject implements Serializable {
 	String FileName;
 	byte[] bytes;
 	public BinaryObject(String key, String aFileName){

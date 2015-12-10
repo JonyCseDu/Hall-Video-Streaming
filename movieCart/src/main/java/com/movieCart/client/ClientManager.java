@@ -1,8 +1,11 @@
 package com.movieCart.client;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.NetworkInterface;
 import java.net.Socket;
@@ -11,18 +14,20 @@ import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.Scanner;
 
+import com.movieCart.Objects.UploadPacket;
 import com.movieCart.client.player.Video;
 
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 public class ClientManager {
-	String serverIp = "127.0.0.1";
-	int serverPort = 7100;
-	Socket clientSocket;
+	static String serverIp = "localhost";
+	static int serverPort = 7100;
+	static Socket clientSocket;
 	static PrintWriter streamWriter;
-	BufferedReader streamReader;
-	boolean isStarted;
-	boolean isplaying;
+	static BufferedReader streamReader;
+	static boolean isStarted;
+	static boolean isplaying;
+	//static boolean hasSocket=false;
 	
 	public ClientManager(){
 		new NativeDiscovery().discover();
@@ -30,19 +35,18 @@ public class ClientManager {
 		isplaying = true;
 	}
 	
+	// player settings
 	public String start(String media){
+		//if(hasSocket) stop();
 		isStarted = true;
 		try {
 			clientSocket = new Socket(serverIp, serverPort);
 			streamWriter = new PrintWriter(clientSocket.getOutputStream());
 			streamReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
+			//hasSocket = true;
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 		
 		streamWriter.println(media);
 		streamWriter.flush();
@@ -67,6 +71,7 @@ public class ClientManager {
 		//url = "rtp://@127.0.0.1:5555";
 		return url;
 	}
+	
 	public void stop(){
 		isStarted = false;
 		streamWriter.println("stop");
@@ -88,6 +93,7 @@ public class ClientManager {
 			streamWriter.close();
 			streamReader.close();
 			clientSocket.close();
+			//hasSocket = false;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -24,13 +24,20 @@ public class UploadPacket implements Serializable {
 	}
 	
 	public void write(){
-		try {
-		    Files.write(Paths.get("./PsudoServer/keys"), key.getBytes(), StandardOpenOption.APPEND);
-		}catch (IOException e) {
-		    System.out.println("EXCEPTION : APPENDING KEYS");
-		}
-		
 		image.writeBinary("./PsudoServer/posters/");
 		video.writeBinary("./PsudoServer/videos/");
 	}
 }
+
+/* search algo
+ 		File folder = new File("your/path");
+		File[] listOfFiles = folder.listFiles();
+
+		for (int i = 0; i < listOfFiles.length; i++) {
+			if (listOfFiles[i].isFile()) {
+				System.out.println("File " + listOfFiles[i].getName());
+		    } else if (listOfFiles[i].isDirectory()) {
+		        System.out.println("Directory " + listOfFiles[i].getName());
+		    }
+		}
+ */
