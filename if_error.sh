@@ -12,15 +12,4 @@ git pull https://github.com/JonyCseDu/MovieCart.git
 git config --global push.default matching
 git config --global push.default simple
 
-email="email"
-name="name"
-
-read -p "Email : " email
-read -p "Name : " name
-
-git config --global user.email "$email"
-git config --global user.name "$name"
-
-echo "DONE"
-
 echo "DONE"
