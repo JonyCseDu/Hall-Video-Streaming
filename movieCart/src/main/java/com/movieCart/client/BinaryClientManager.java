@@ -12,7 +12,7 @@ import com.movieCart.Objects.UploadPacket;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 public class BinaryClientManager {
-	static String serverIp = "localhost";
+	static String serverIp = "192.168.0.109";
 	static int serverPort = 8100;
 	static Socket clientSocket;
 	static ObjectOutputStream outputStream;

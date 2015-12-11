@@ -52,7 +52,7 @@ public class uploadUI extends JFrame  {
 		            g.drawImage(backgroundImage, 0, 0, 1500,1000, null);
 		        }
 		    });
-		((JComponent) getContentPane()).setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));  
+		((JComponent) getContentPane()).setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10,Color.black));  
 		getContentPane().setLayout(new GridLayout(4, 1, 20, 20));
 		
 		// panels setting
@@ -175,6 +175,7 @@ public class uploadUI extends JFrame  {
 		// upload button
 		
 		JButton upload = new JButton("UPLOAD");
+		//upload.setSize(100, 50);
 		upload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UploadPacket packet = new UploadPacket(key.getText(),
