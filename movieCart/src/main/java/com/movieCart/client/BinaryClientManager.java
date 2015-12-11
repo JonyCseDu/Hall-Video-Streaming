@@ -22,29 +22,20 @@ public class BinaryClientManager {
 	}
 	
 	// upload setting
-		public static void upload(UploadPacket packet){
-			try {
-				//hasSocket = true;
-				clientSocket = new Socket(serverIp, serverPort);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-			try {
-				outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
-				outputStream.writeObject(packet);
-				outputStream.flush();
-				System.out.println("upload finished");
-				outputStream.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			// close sokcet and streams
-			try {
-				clientSocket.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+	public static void upload(UploadPacket packet){
+		try {
+			clientSocket = new Socket(serverIp, serverPort);
+			outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+			// uploading...
+			outputStream.writeObject(packet);
+			outputStream.flush();
+			System.out.println("upload finished");
+			// close
+			outputStream.close();
+			clientSocket.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
+	}
 }

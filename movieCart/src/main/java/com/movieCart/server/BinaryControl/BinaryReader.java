@@ -19,22 +19,15 @@ public class BinaryReader extends Thread {
 	
 	public BinaryReader (Socket socket) {
 		this.socket = socket;
-//		try {
-//			streamReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//			streamWriter = new PrintWriter(socket.getOutputStream());
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 	
 	void takeUploadStream(){
 		try{
 			inputStream = new ObjectInputStream(socket.getInputStream());
-			UploadPacket packet = (UploadPacket) inputStream.readObject(); 
+			UploadPacket packet = (UploadPacket) inputStream.readObject();
 			packet.write();
-			inputStream.close();
 			System.out.println("writing object successful");
+			inputStream.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}

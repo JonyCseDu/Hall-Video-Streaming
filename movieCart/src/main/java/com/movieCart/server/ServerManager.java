@@ -91,8 +91,6 @@ class BinaryManager implements ServerManager{
 				Socket rcvedSocket = serverSocket.accept();
 				System.out.println("ip :" + rcvedSocket.getRemoteSocketAddress() + " port: " + rcvedSocket.getLocalPort());
 				new BinaryReader(rcvedSocket).start();
-				
-				
 			}catch(SocketTimeoutException e){
 				if(isFinished) break;
 				System.out.println("timeout\n");
