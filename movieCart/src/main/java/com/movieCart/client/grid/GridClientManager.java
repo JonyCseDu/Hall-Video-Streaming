@@ -18,6 +18,7 @@ public class GridClientManager {
 	static int serverPort = 9100;
 	static Socket clientSocket;
 	static ObjectOutputStream outputStream;
+	static ObjectOutputStream inputStream;
 	
 	// upload setting
 	public static ArrayList<GridObject> request(RequestObject packet){
@@ -28,8 +29,6 @@ public class GridClientManager {
 			outputStream.writeObject(packet);
 			outputStream.flush();
 			System.out.println("requested");
-			// close
-			outputStream.close();
 			return getGridObjects();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,6 +47,11 @@ public class GridClientManager {
 				if(object == null) break;
 				else gridObjects.add(object);
 			}
+			outputStream.writeObject(null);
+			outputStream.flush();
+			
+			// close all streams
+			outputStream.close();
 			inputStream.close();
 			clientSocket.close();
 			return gridObjects;

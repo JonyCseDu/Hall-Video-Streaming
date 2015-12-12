@@ -24,13 +24,30 @@ public class GridReader extends Thread {
 			inputStream = new ObjectInputStream(socket.getInputStream());
 			RequestObject requestObject = (RequestObject) inputStream.readObject();
 			System.out.println("grid request accepted");
-			inputStream.close();
+			//inputStream.close();
 			
 			if(requestObject.getCommand().equals("search")){
 				serveRequest(requestObject.getSearchKey());
 			}
 			
+			outputStream.writeObject(null);
+			requestObject = (RequestObject) inputStream.readObject();
+			if(requestObject == null){
+				System.out.println("NULL FOUND\n");
+			}
 		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		// close
+		try {
+			
+			outputStream.flush();
+					
+			outputStream.close();
+			inputStream.close();
+			socket.close();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -65,15 +82,6 @@ public class GridReader extends Thread {
 		    }
 		}
 		System.out.println("grid request served");
-		
-		// close
-		try {
-			outputStream.writeObject(null);
-			outputStream.close();
-			socket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 /* search algo
 		File folder = new File("your/path");
