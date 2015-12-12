@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
+import com.movieCart.Objects.InfoObject;
 import com.movieCart.client.ClientManager;
 
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
@@ -40,8 +41,10 @@ public class Video{
 	//static final String media;
 	boolean isplaying = false;
 	boolean isStarted = true;
+	InfoObject infoObject;
 	
-	public Video(final String media){
+	public Video(final InfoObject infoObject){
+		this.infoObject = infoObject;
 		//media = this.media;
 		new NativeDiscovery().discover();
 		clientManager = new ClientManager();
@@ -82,7 +85,7 @@ public class Video{
         	public void actionPerformed(ActionEvent e) {
         		if(isStarted) stop();
         		//final String tmp = media.toString();
-        		else start(media);
+        		else start(infoObject.getVideoName());
         	}
         });
         btnStop.setToolTipText("Stop");
@@ -113,13 +116,13 @@ public class Video{
         
      
         frame.setVisible(true);
-        start(media);
+        start(infoObject.getVideoName());
 	}
 	
 	int time = 0;
 	ActionListener timerActionListener = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			if(time == 90*1000){
+			if(time == infoObject.getTime()){
 				timer.stop();
 			}
 			else{
@@ -129,7 +132,7 @@ public class Video{
 			
 		}
 	};
-	private void start(final String media){
+	private void start(String media){
 		url = clientManager.start(media);
 		mediaPlayer.playMedia(url);
 		isStarted = true;
