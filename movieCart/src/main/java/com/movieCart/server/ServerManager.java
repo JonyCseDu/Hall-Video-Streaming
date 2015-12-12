@@ -13,6 +13,7 @@ import javax.sound.sampled.Port;
 
 import com.movieCart.server.BinaryControl.BinaryReader;
 import com.movieCart.server.BinaryControl.GridReader;
+import com.movieCart.server.BinaryControl.UserReader;
 import com.movieCart.server.playerControl.Reader;
 
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
@@ -102,6 +103,29 @@ class GridManager extends ServerManager{
 				Socket rcvedSocket = serverSocket.accept();
 				System.out.println("ip :" + rcvedSocket.getRemoteSocketAddress() + " port: " + rcvedSocket.getLocalPort());
 				new GridReader(rcvedSocket).start();
+			}catch(SocketTimeoutException e){
+				System.out.println("timeout\n");
+			}
+			catch (IOException e) {
+				e.printStackTrace();
+				break;
+			}
+		}
+	}
+}
+
+class UserManager extends ServerManager{
+	
+	public UserManager(int port){
+		super(port);
+	}
+	
+	public void start(){ // just wait for socket
+		while(true){
+			try {
+				Socket rcvedSocket = serverSocket.accept();
+				System.out.println("ip :" + rcvedSocket.getRemoteSocketAddress() + " port: " + rcvedSocket.getLocalPort());
+				new UserReader(rcvedSocket).start();
 			}catch(SocketTimeoutException e){
 				System.out.println("timeout\n");
 			}

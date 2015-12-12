@@ -6,14 +6,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Serializable;
 
 import javax.print.attribute.standard.RequestingUserName;
 
 import com.sun.jna.platform.WindowUtils.NativeWindowUtils;
 
-public class welcomepacket {
+public class welcomepacket implements Serializable {
 	String email;
 	String password;
 	String command;
@@ -48,15 +51,13 @@ public class welcomepacket {
 	}
 	public void write()
 	{
-		File file=new File("./PsedoServer/userData");
 		BufferedWriter bf;
 		try{
-			bf = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
-			bf.write(email);
-			bf.write(password);
-			bf.flush();
-			bf.close();
-			
+			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("/home/jony/MovieCart/movieCart/PsudoServer/userData.txt", true)));
+			out.println(email);
+			out.println(password);
+			out.flush();
+			out.close();
 		}
 		catch(Exception e)
 		{
@@ -67,11 +68,9 @@ public class welcomepacket {
 		
 	   public boolean readAndCheck()
 	   {
-
-			File file=new File("./PsedoServer/userData");
 			BufferedReader br;
 			try{
-				br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+				br = new BufferedReader(new InputStreamReader(new FileInputStream("/home/jony/MovieCart/movieCart/PsudoServer/userData.txt")));
 				//bf.write(email);
 				//bf.write(password);
 				//bf.flush();
@@ -91,6 +90,9 @@ public class welcomepacket {
 				e.printStackTrace();
 			}
 			if(command.equals("login")) return false;
-			else return true;
+			else{
+				write();
+				return true;
+			}
 	   }
 }

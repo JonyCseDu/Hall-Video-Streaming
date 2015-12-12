@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 
 import com.movieCart.Objects.UploadPacket;
 import com.movieCart.Objects.welcomepacket;
+import com.movieCart.client.clientManager.LoginSignUpManager;
 import com.movieCart.client.grid.GridFrameClass;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -134,8 +135,13 @@ public class welcomepage extends JFrame  {
 				}
 				else
 				{
-					new mymoviecart();
-					setVisible(false);
+					if(!LoginSignUpManager.serverCheck(packet)){
+						label.setText("Unsuccessful. Try again");
+					}
+					else{
+						new mymoviecart();
+						setVisible(false);
+					}
 					System.out.println(packet.getEmail()+" "+packet.getPassword());
 				}
 					
@@ -155,10 +161,16 @@ public class welcomepage extends JFrame  {
 				}
 				else
 				{
-					new mymoviecart();
-					setVisible(false);
+					if(!LoginSignUpManager.serverCheck(packet)){
+						label.setText("Unsuccessful. Try again");
+					}
+					else{
+						new mymoviecart();
+						setVisible(false);
+					}
 					System.out.println(packet.getEmail()+" "+packet.getPassword());
 				}
+				
 					
 				//BinaryClientManager.upload(packet);
 			}

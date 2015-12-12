@@ -11,6 +11,7 @@ import java.net.Socket;
 import javax.print.attribute.standard.PrinterMessageFromOperator;
 
 import com.movieCart.Objects.UploadPacket;
+import com.movieCart.Objects.welcomepacket;
 
 public class BinaryReader extends Thread {
 	Socket socket;
@@ -21,20 +22,20 @@ public class BinaryReader extends Thread {
 		this.socket = socket;
 	}
 	
-	void takeUploadStream(){
-		try{
+	public void run(){
+		try {
 			inputStream = new ObjectInputStream(socket.getInputStream());
 			UploadPacket packet = (UploadPacket) inputStream.readObject();
 			packet.write();
-			System.out.println("writing object successful");
+			System.out.println("WRITING OBJECT SUCCESSFUL");
 			inputStream.close();
-		}catch(Exception e){
+			socket.close();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	public void run(){
-		takeUploadStream();
+		
 		
 	}
 }
