@@ -13,7 +13,9 @@ import java.io.Serializable;
 
 import javax.print.attribute.standard.PrinterMessageFromOperator;
 
+import uk.co.caprica.vlcj.component.EmbeddedMediaListPlayerComponent;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.player.headless.HeadlessMediaPlayer;
 
 public class InfoObject implements Serializable {
@@ -35,17 +37,19 @@ public class InfoObject implements Serializable {
 		posterName = poster;
 		videoName = video;
 		// get info of video
-//		MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
-//		HeadlessMediaPlayer mediaPlayer = mediaPlayerFactory.newHeadlessMediaPlayer();
-//		String options[] = {
-//        		":no-sout-rtp-sap", 
-//				":no-sout-standard-sap",
-//				":sout-all",
-//    			":sout-keep"
-//        };
-//        mediaPlayer.setStandardMediaOptions(options);
-//        mediaPlayer.startMedia(video);
-//        System.out.println("playing");
+		EmbeddedMediaListPlayerComponent component = new EmbeddedMediaListPlayerComponent();
+		EmbeddedMediaPlayer mediaPlayer = component.getMediaPlayer();
+		
+		String options[] = {
+        		":no-sout-rtp-sap", 
+				":no-sout-standard-sap",
+				":sout-all",
+    			":sout-keep"
+        };
+        mediaPlayer.setStandardMediaOptions(options);
+        mediaPlayer.startMedia(video);
+        
+        System.out.println("playing");
         
         // now get
         File file = new File(videoName);
@@ -57,13 +61,13 @@ public class InfoObject implements Serializable {
         	System.err.println("FILE NOT FOUND");
         }
         
-        //Dimension dimension =  mediaPlayer.getVideoDimension();
-        dimension_x = 1024; //dimension.width;
-        dimension_y = 756; //dimension.height;
-        time = 90; // mediaPlayer.gettime();
+        Dimension dimension =  mediaPlayer.getVideoDimension();
+        dimension_x = dimension.width;
+        dimension_y = dimension.height;
+        time = mediaPlayer.getLength();
         System.out.println("time : " + time);
         
-        //mediaPlayer.stop();
+        mediaPlayer.stop();
         
         // set uploader
         this.uploader = uploader; 
