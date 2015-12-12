@@ -20,7 +20,6 @@ import java.nio.channels.NonWritableChannelException;
 import javax.swing.JTextField;
 
 import com.movieCart.Objects.UploadPacket;
-import com.movieCart.client.BinaryClientManager;
 import com.movieCart.client.ClientManager;
 
 import java.awt.event.ActionListener;

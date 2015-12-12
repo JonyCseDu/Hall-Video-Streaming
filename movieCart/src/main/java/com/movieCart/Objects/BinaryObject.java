@@ -38,4 +38,20 @@ public class BinaryObject implements Serializable {
 			System.out.println("Byte writing exception");
 		} //creates, overwrites
 	}
+
+	public String getFileName() {
+		return FileName;
+	}
+
+	public void setFileName(String fileName) {
+		FileName = fileName;
+	}
+
+	public byte[] getBytes() {
+		return bytes;
+	}
+
+	public void setBytes(byte[] bytes) {
+		this.bytes = bytes;
+	}
 }

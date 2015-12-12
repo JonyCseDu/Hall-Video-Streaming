@@ -1,4 +1,4 @@
-package com.movieCart.client;
+package com.movieCart.client.upload;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import com.movieCart.Objects.UploadPacket;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 public class BinaryClientManager {
-	static String serverIp = "192.168.0.109";
+	static String serverIp = "localhost";
 	static int serverPort = 8100;
 	static Socket clientSocket;
 	static ObjectOutputStream outputStream;

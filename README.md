@@ -1,2 +1,2 @@
-# Hall-Video-Streaming
+# MovieCart
 Networking project
