@@ -41,9 +41,7 @@ public class GridReader extends Thread {
 		
 		// close
 		try {
-			
-			outputStream.flush();
-					
+			outputStream.flush();		
 			outputStream.close();
 			inputStream.close();
 			socket.close();
