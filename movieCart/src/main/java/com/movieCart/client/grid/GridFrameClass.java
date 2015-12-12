@@ -35,6 +35,10 @@ public class GridFrameClass extends JFrame{
 		list = manager.request(new RequestObject("search", key));
 		create_gridFrame();
 	}
+//	public static void main(String args[])
+//	{
+//		new GridFrameClass();
+//	}
 
 	void create_gridFrame(){
 		
