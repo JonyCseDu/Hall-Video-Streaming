@@ -38,17 +38,23 @@ public class InfoObject implements Serializable {
 		posterName = poster;
 		videoName = video;
 		// get info of video
-//		EmbeddedMediaListPlayerComponent component = new EmbeddedMediaListPlayerComponent();
-//		EmbeddedMediaPlayer mediaPlayer = component.getMediaPlayer(); 
-//		
-//		String options[] = {
-//        		":no-sout-rtp-sap", 
-//				":no-sout-standard-sap",
-//				":sout-all",
-//    			":sout-keep"
-//        };
-//        mediaPlayer.setStandardMediaOptions(options);
-//        mediaPlayer.startMedia(video);
+		MediaPlayerFactory factory = new MediaPlayerFactory(video);
+		HeadlessMediaPlayer mediaPlayer = factory.newHeadlessMediaPlayer();
+		String options[] = {
+        		":no-sout-rtp-sap", 
+				":no-sout-standard-sap",
+				":sout-all",
+    			":sout-keep"
+        };
+        mediaPlayer.setStandardMediaOptions(options);
+		
+		mediaPlayer.startMedia(video, formatRtpStream("localhost", 1000));
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         System.out.println("playing");
         
@@ -65,14 +71,24 @@ public class InfoObject implements Serializable {
         //Dimension dimension =  mediaPlayer.getVideoDimension();
         dimension_x = 1024;//dimension.width;
         dimension_y = 756;//dimension.height;
-        time = 100;//mediaPlayer.getLength();
+        time = mediaPlayer.getLength();//mediaPlayer.getLength();
         System.out.println("time : " + time);
+        mediaPlayer.stop();
         
         //mediaPlayer.stop();
         
         // set uploader
         this.uploader = uploader; 
 	}
+	private static String formatRtpStream(String serverAddress, int serverPort) {
+        StringBuilder sb = new StringBuilder(60);
+        sb.append(":sout=#rtp{dst=");
+        sb.append(serverAddress);
+        sb.append(",port=");
+        sb.append(serverPort);
+        sb.append(",mux=ts}");
+        return sb.toString();
+    }
 	
 	void writeFile(String key){
 		File fout = new File("./PsudoServer/infos/" + key);

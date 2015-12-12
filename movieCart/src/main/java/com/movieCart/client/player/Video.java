@@ -52,10 +52,10 @@ public class Video{
         
         mediaPlayerComponent.getVideoSurface().setForeground(Color.GRAY);
         //frame.setContentPane(mediaPlayerComponent);
-        frame.add(mediaPlayerComponent, BorderLayout.CENTER);
+        frame.getContentPane().add(mediaPlayerComponent, BorderLayout.CENTER);
         frame.setLocation(100, 100);
         frame.setSize(500, 500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         
         //////////////////////////////
