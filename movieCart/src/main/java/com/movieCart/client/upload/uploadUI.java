@@ -36,16 +36,21 @@ public class uploadUI extends JFrame  {
 	private JTextField imageUrl;
 	private JTextField videoUrl;
 	private Image backgroundImage;
-	public uploadUI() throws HeadlessException, IOException {
+	public uploadUI() {
 		super("UPLOAD");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(600, 200);
 		
 		// setting background
 		
 		//getContentPane().setBackground(Color.WHITE);/home/sayed/Downloads/
-		backgroundImage = ImageIO.read(new File("back.jpg"));
+		try {
+			backgroundImage = ImageIO.read(new File("back.jpg"));
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		 setContentPane(new JPanel(new BorderLayout()) {
 		        @Override public void paintComponent(Graphics g) {
 		            g.drawImage(backgroundImage, 0, 0, 1500,1000, null);
@@ -177,6 +182,7 @@ public class uploadUI extends JFrame  {
 		//upload.setSize(100, 50);
 		upload.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				UploadPacket packet = new UploadPacket(key.getText(),
 						imageUrl.getText(), videoUrl.getText());
 				

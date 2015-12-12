@@ -7,6 +7,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import com.movieCart.client.grid.GridFrameClass;
 import com.movieCart.client.upload.uploadUI;
 
 import java.awt.BorderLayout;
@@ -20,18 +21,25 @@ import java.awt.Insets;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class mymoviecart extends JFrame {
 	
 	private Image backgroundImage;
-	public mymoviecart() throws IOException {
+	public mymoviecart(){
 		
-		super("MYMOVIECART");
+		super("MY MOVIECART");
 		setResizable(false);
 		getContentPane().setLayout(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(600, 500);
-		backgroundImage = ImageIO.read(new File("back.jpg"));		
+		try {
+			backgroundImage = ImageIO.read(new File("back.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		JPanel panel = new JPanel(null){
 	        @Override public void paintComponent(Graphics g) {
 	        	g.drawImage(backgroundImage, 0, 0, 1500,1000, null);
@@ -39,9 +47,20 @@ public class mymoviecart extends JFrame {
 	    };
 		panel.setSize(500, 500);
 		JButton b1 = new JButton("upload");
+		b1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new uploadUI();
+			}
+		});
 	
 		b1.setBounds(300, 250, 100, 20);
 		JButton b2 = new JButton("Watch video");
+		b2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new GridFrameClass();
+				setVisible(false);
+			}
+		});
 		b2.setBounds(300, 280, 100, 20);
 		
 		panel.add(b1);

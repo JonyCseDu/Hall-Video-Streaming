@@ -116,8 +116,8 @@ public class welcomepage extends JFrame  {
 		b3.setFont(new Font("Dialog", Font.BOLD, 18));
 		b3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
 				new GridFrameClass();
+				setVisible(false);
 			}
 		});
 		
@@ -134,6 +134,8 @@ public class welcomepage extends JFrame  {
 				}
 				else
 				{
+					new mymoviecart();
+					setVisible(false);
 					System.out.println(packet.getEmail()+" "+packet.getPassword());
 				}
 					
@@ -153,6 +155,8 @@ public class welcomepage extends JFrame  {
 				}
 				else
 				{
+					new mymoviecart();
+					setVisible(false);
 					System.out.println(packet.getEmail()+" "+packet.getPassword());
 				}
 					
