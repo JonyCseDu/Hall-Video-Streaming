@@ -29,6 +29,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 
 public class Video{
+	
 	private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
 	private final EmbeddedMediaPlayer mediaPlayer;
 	JFrame frame;
@@ -42,6 +43,7 @@ public class Video{
 	
 	public Video(final String media){
 		//media = this.media;
+		new NativeDiscovery().discover();
 		clientManager = new ClientManager();
 		
 		frame = new JFrame("MovieCart");

@@ -20,6 +20,7 @@ class StreamingPlayer{
     			":sout-keep"
         };
         mediaPlayer.setStandardMediaOptions(options);
+        System.out.println("streaming set");
 		
 	}
 	

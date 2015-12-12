@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -22,12 +24,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import com.movieCart.Objects.BinaryObject;
 import com.movieCart.Objects.GridObject;
 import com.movieCart.Objects.InfoObject;
+import com.movieCart.client.player.Video;
 
 public class videoPanelClass extends JPanel {
 
@@ -75,12 +79,12 @@ public class videoPanelClass extends JPanel {
 		create_panel();
 	}
 
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		// paint the background image and scale it to fill the entire space
-		// g.drawImage(myPicture, 0, 0, getWidth(), getHeight(), this);
-		g.drawImage((Image) bufferedImage, 0, 0, getWidth(), getHeight(), this);
-	}
+//	public void paintComponent(Graphics g) {
+//		super.paintComponent(g);
+//		// paint the background image and scale it to fill the entire space
+//		// g.drawImage(myPicture, 0, 0, getWidth(), getHeight(), this);
+//		g.drawImage((Image) bufferedImage, 0, 0, getWidth(), getHeight(), this);
+//	}
 
 	void create_panel() {
 
@@ -94,7 +98,7 @@ public class videoPanelClass extends JPanel {
 
 			System.out.println("Info : " + PosterName + "  " + VideoName + "   " + Dimention_X + "  " + Dimention_Y);
 
-			this.setLayout(new BorderLayout());
+			//this.setLayout(new BorderLayout());
 			// Image myPicture = ImageIO.read(new
 			// File("/home/mahmud/Pictures/poster3.jpg"));
 
@@ -110,11 +114,83 @@ public class videoPanelClass extends JPanel {
 			 * 
 			 * 
 			 */
-			this.paintComponents(getGraphics());
+			//--------------------this.paintComponents(getGraphics());
 
 			// JLabel lableVideo = new JLabel(new ImageIcon(myPicture));
 			// this.add(lableVideo);
-			this.setPreferredSize(new Dimension(400, 500));
+			//-----------------------------------------------------------------------------------------------------------------
+			this.setLayout(null);
+			
+			
+			this.setBounds(0, 0, 250, 400);
+			
+			GridBagLayout gbl_panel = new GridBagLayout();
+			gbl_panel.columnWidths = new int[]{0, 0};
+			gbl_panel.rowHeights = new int[]{300, 100, 0};
+			gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+			gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+			this.setLayout(gbl_panel);
+			
+			/*
+			 * 
+			 * 	 setContentPane(new JPanel(new BorderLayout()) {
+		        @Override public void paintComponent(Graphics g) {
+		            g.drawImage(backgroundImage, 0, 0, 1500,1000, null);
+		        }
+		    });
+			 * */
+			
+			
+			
+			
+			JPanel ImageView = new JPanel(null) {
+		        public void paintComponent(Graphics g) {
+		            g.drawImage((Image) bufferedImage, 0, 0, 250,300, null);
+		        }
+		    };
+			ImageView.setBackground(UIManager.getColor("Button.foreground"));
+			GridBagConstraints gbc_ImageView = new GridBagConstraints();
+			gbc_ImageView.insets = new Insets(0, 0, 5, 0);
+			gbc_ImageView.fill = GridBagConstraints.BOTH;
+			gbc_ImageView.gridx = 0;
+			gbc_ImageView.gridy = 0;
+			this.add(ImageView, gbc_ImageView);
+			
+			JPanel Info = new JPanel();
+			Info.setForeground(new Color(255, 0, 0));
+			Info.setBackground(UIManager.getColor("Button.background"));
+			GridBagConstraints gbc_Info = new GridBagConstraints();
+			gbc_Info.fill = GridBagConstraints.BOTH;
+			gbc_Info.gridx = 0;
+			gbc_Info.gridy = 1;
+			this.add(Info, gbc_Info);
+			Info.setLayout(new GridLayout(4, 1, 0, 0));
+			
+			JLabel lblName = new JLabel(infoObject.getName());
+			Info.add(lblName);
+			
+			JLabel lblTime = new JLabel("" + infoObject.getTime());
+			Info.add(lblTime);
+			
+			JLabel lblResulation = new JLabel(infoObject.getDimension_x() + " * " + infoObject.getDimension_y());
+			Info.add(lblResulation);
+			
+			JButton btnWatch = new JButton("WATCH");
+			btnWatch.setBackground(new Color(0, 255, 0));
+			btnWatch.setForeground(new Color(128, 0, 128));
+			Info.add(btnWatch);
+			
+			
+			
+			
+			////---------------------------------------------------------------------
+			
+
+			
+			
+			
+			//-----------------------------------------------------------------------------------------------------------------
+			this.setPreferredSize(new Dimension(250, 400));
 			this.setBackground(Color.magenta);
 
 			// JButton btnNewButton = new JButton("VIEW DETAILS");
@@ -142,7 +218,8 @@ public class videoPanelClass extends JPanel {
 			}
 			
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
+				System.out.println("opening Video : " + infoObject.getVideoName());
+				new Video(infoObject.getVideoName());
 				
 			}
 			

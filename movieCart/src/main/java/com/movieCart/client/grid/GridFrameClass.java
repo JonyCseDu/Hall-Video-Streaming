@@ -1,11 +1,15 @@
 package com.movieCart.client.grid;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -43,7 +47,7 @@ public class GridFrameClass extends JFrame{
 		this.getContentPane().setLayout(gridBagLayout);
 
 		JPanel SearchPanel = new JPanel();
-		SearchPanel.setBackground(new Color(0, 51, 153));
+		SearchPanel.setBackground(new Color(51, 0, 51));
 		GridBagConstraints gbc_SearchPanel = new GridBagConstraints();
 		gbc_SearchPanel.insets = new Insets(0, 0, 5, 0);
 		gbc_SearchPanel.fill = GridBagConstraints.BOTH;
@@ -51,7 +55,7 @@ public class GridFrameClass extends JFrame{
 		gbc_SearchPanel.gridy = 0;
 		this.getContentPane().add(SearchPanel, gbc_SearchPanel);
 		GridBagLayout gbl_SearchPanel = new GridBagLayout();
-		gbl_SearchPanel.columnWidths = new int[]{722, 0, 0};
+		gbl_SearchPanel.columnWidths = new int[]{355, 0, 0};
 		gbl_SearchPanel.rowHeights = new int[]{42, 0};
 		gbl_SearchPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		gbl_SearchPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
@@ -80,27 +84,34 @@ public class GridFrameClass extends JFrame{
 		gbc_Search.gridy = 0;
 		SearchPanel.add(Search, gbc_Search);
 		GridBagLayout gbl_Search = new GridBagLayout();
-		gbl_Search.columnWidths = new int[]{0, 0, 0, 236, 195, 0};
+		gbl_Search.columnWidths = new int[]{612, 134, 0};
 		gbl_Search.rowHeights = new int[]{0, 58, 0};
-		gbl_Search.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_Search.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		gbl_Search.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		Search.setLayout(gbl_Search);
 		
-		JTextField textField;
-		textField = new JTextField();
+		Component textField = new JTextField();
+		textField.setFont(new Font("Dialog", Font.PLAIN, 20));
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 0, 5);
 		gbc_textField.fill = GridBagConstraints.BOTH;
-		gbc_textField.gridx = 3;
+		gbc_textField.gridx = 0;
 		gbc_textField.gridy = 1;
 		Search.add(textField, gbc_textField);
-		textField.setColumns(10);
+		((JTextField) textField).setColumns(10);
 		
-		JButton btnNewButton = new JButton("New button");
+		JButton btnNewButton = new JButton("Search");
+		btnNewButton.addActionListener(new ActionListener() {
+			
+
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.anchor = GridBagConstraints.WEST;
-		gbc_btnNewButton.fill = GridBagConstraints.VERTICAL;
-		gbc_btnNewButton.gridx = 4;
+		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
+		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 1;
 		Search.add(btnNewButton, gbc_btnNewButton);
 		
@@ -162,7 +173,7 @@ public class GridFrameClass extends JFrame{
 
 		}
 
-		mainpanel.setPreferredSize(new Dimension(900,500*(i/3) ));
+		mainpanel.setPreferredSize(new Dimension(900,400*(i/3) ));
 		this.setBounds(100, 100, 900, 800);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setVisible(true);

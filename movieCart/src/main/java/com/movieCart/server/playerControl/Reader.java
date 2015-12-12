@@ -61,6 +61,7 @@ public class Reader extends Thread{
 				streamWriter.flush();
 			}
 			else{
+				System.out.println("else happend");
 				streaming = new StreamingPlayer(socket, command);
 				System.out.println(socket);
 				streaming.start(command);

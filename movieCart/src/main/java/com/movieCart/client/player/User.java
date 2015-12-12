@@ -4,7 +4,7 @@ import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 public class User {
 	public static void main(String[] args) {
-    	new NativeDiscovery().discover();
-        new Video("Ubuntu phone.mp4");
+    	
+        new Video("./PsudoServer/videos/fgghskgj.mkv");
     }
 }
