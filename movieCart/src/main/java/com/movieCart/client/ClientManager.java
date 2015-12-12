@@ -20,7 +20,7 @@ import com.movieCart.client.player.Video;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 public class ClientManager {
-	static String serverIp = "localhost";
+	static String serverIp = "192.168.0.109";
 	static int serverPort = 7100;
 	static Socket clientSocket;
 	static PrintWriter streamWriter;

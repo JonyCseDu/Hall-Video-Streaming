@@ -14,7 +14,7 @@ import com.movieCart.Objects.UploadPacket;
 import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 
 public class GridClientManager {
-	static String serverIp = "localhost";
+	static String serverIp = "192.168.0.109";
 	static int serverPort = 9100;
 	static Socket clientSocket;
 	static ObjectOutputStream outputStream;

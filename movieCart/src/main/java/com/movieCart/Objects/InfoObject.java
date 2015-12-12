@@ -38,17 +38,17 @@ public class InfoObject implements Serializable {
 		posterName = poster;
 		videoName = video;
 		// get info of video
-		EmbeddedMediaListPlayerComponent component = new EmbeddedMediaListPlayerComponent();
-		EmbeddedMediaPlayer mediaPlayer = component.getMediaPlayer(); 
-		
-		String options[] = {
-        		":no-sout-rtp-sap", 
-				":no-sout-standard-sap",
-				":sout-all",
-    			":sout-keep"
-        };
-        mediaPlayer.setStandardMediaOptions(options);
-        mediaPlayer.startMedia(video);
+//		EmbeddedMediaListPlayerComponent component = new EmbeddedMediaListPlayerComponent();
+//		EmbeddedMediaPlayer mediaPlayer = component.getMediaPlayer(); 
+//		
+//		String options[] = {
+//        		":no-sout-rtp-sap", 
+//				":no-sout-standard-sap",
+//				":sout-all",
+//    			":sout-keep"
+//        };
+//        mediaPlayer.setStandardMediaOptions(options);
+//        mediaPlayer.startMedia(video);
         
         System.out.println("playing");
         
@@ -62,13 +62,13 @@ public class InfoObject implements Serializable {
         	System.err.println("FILE NOT FOUND");
         }
         
-        Dimension dimension =  mediaPlayer.getVideoDimension();
-        dimension_x = dimension.width;
-        dimension_y = dimension.height;
-        time = mediaPlayer.getLength();
+        //Dimension dimension =  mediaPlayer.getVideoDimension();
+        dimension_x = 1024;//dimension.width;
+        dimension_y = 756;//dimension.height;
+        time = 100;//mediaPlayer.getLength();
         System.out.println("time : " + time);
         
-        mediaPlayer.stop();
+        //mediaPlayer.stop();
         
         // set uploader
         this.uploader = uploader; 
