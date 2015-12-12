@@ -14,6 +14,7 @@ import java.io.Serializable;
 import javax.print.attribute.standard.PrinterMessageFromOperator;
 
 import uk.co.caprica.vlcj.component.EmbeddedMediaListPlayerComponent;
+import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.player.headless.HeadlessMediaPlayer;
@@ -29,7 +30,7 @@ public class InfoObject implements Serializable {
 	String uploader;
 	
 	public InfoObject(){
-		
+		new NativeDiscovery().discover();
 	}
 	
 	public InfoObject(String name, String poster, String video, String uploader) {
@@ -38,7 +39,7 @@ public class InfoObject implements Serializable {
 		videoName = video;
 		// get info of video
 		EmbeddedMediaListPlayerComponent component = new EmbeddedMediaListPlayerComponent();
-		EmbeddedMediaPlayer mediaPlayer = component.getMediaPlayer();
+		EmbeddedMediaPlayer mediaPlayer = component.getMediaPlayer(); 
 		
 		String options[] = {
         		":no-sout-rtp-sap", 
