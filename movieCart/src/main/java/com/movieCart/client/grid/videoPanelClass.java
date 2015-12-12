@@ -32,6 +32,11 @@ import com.movieCart.Objects.BinaryObject;
 import com.movieCart.Objects.GridObject;
 import com.movieCart.Objects.InfoObject;
 import com.movieCart.client.player.Video;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
+import java.awt.SystemColor;
 
 public class videoPanelClass extends JPanel {
 
@@ -60,6 +65,7 @@ public class videoPanelClass extends JPanel {
 	 */
 
 	public videoPanelClass(GridObject object) {
+		setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		// TODO Auto-generated constructor stub
 		this.object = object;
 		this.infoObject = this.object.getInfoObject();
@@ -126,7 +132,7 @@ public class videoPanelClass extends JPanel {
 			
 			GridBagLayout gbl_panel = new GridBagLayout();
 			gbl_panel.columnWidths = new int[]{0, 0};
-			gbl_panel.rowHeights = new int[]{300, 100, 0};
+			gbl_panel.rowHeights = new int[]{206, 83, 0};
 			gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
 			gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 			this.setLayout(gbl_panel);
@@ -145,9 +151,10 @@ public class videoPanelClass extends JPanel {
 			
 			JPanel ImageView = new JPanel(null) {
 		        public void paintComponent(Graphics g) {
-		            g.drawImage((Image) bufferedImage, 0, 0, 250,300, null);
+		            g.drawImage((Image) bufferedImage, 0, 0, 250,220, null);
 		        }
 		    };
+			ImageView.setBorder(null);
 			ImageView.setBackground(UIManager.getColor("Button.foreground"));
 			GridBagConstraints gbc_ImageView = new GridBagConstraints();
 			gbc_ImageView.insets = new Insets(0, 0, 5, 0);
@@ -157,6 +164,7 @@ public class videoPanelClass extends JPanel {
 			this.add(ImageView, gbc_ImageView);
 			
 			JPanel Info = new JPanel();
+			Info.setBorder(null);
 			Info.setForeground(new Color(255, 0, 0));
 			Info.setBackground(UIManager.getColor("Button.background"));
 			GridBagConstraints gbc_Info = new GridBagConstraints();
@@ -190,7 +198,7 @@ public class videoPanelClass extends JPanel {
 			
 			
 			//-----------------------------------------------------------------------------------------------------------------
-			this.setPreferredSize(new Dimension(250, 400));
+			this.setPreferredSize(new Dimension(250, 320));
 			this.setBackground(Color.magenta);
 
 			// JButton btnNewButton = new JButton("VIEW DETAILS");

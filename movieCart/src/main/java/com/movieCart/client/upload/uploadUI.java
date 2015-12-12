@@ -30,6 +30,8 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.LineBorder;
 
 public class uploadUI extends JFrame  {
 	private JTextField key;
@@ -46,17 +48,17 @@ public class uploadUI extends JFrame  {
 		
 		//getContentPane().setBackground(Color.WHITE);/home/sayed/Downloads/
 		try {
-			backgroundImage = ImageIO.read(new File("back.jpg"));
+			backgroundImage = ImageIO.read(new File("upload.jpg"));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		 setContentPane(new JPanel(new BorderLayout()) {
 		        @Override public void paintComponent(Graphics g) {
-		            g.drawImage(backgroundImage, 0, 0, 1500,1000, null);
+		            g.drawImage(backgroundImage, 0, 0, 900,250, null);
 		        }
 		    });
-		((JComponent) getContentPane()).setBorder(BorderFactory.createMatteBorder(10, 10, 10, 10,Color.black));  
+		((JComponent) getContentPane()).setBorder(new LineBorder(new Color(210, 105, 30), 5, true));  
 		getContentPane().setLayout(new GridLayout(4, 1, 20, 20));
 		
 		// panels setting
@@ -79,6 +81,7 @@ public class uploadUI extends JFrame  {
 		// key text
 		
 		key = new JTextField();
+		key.setBackground(new Color(255, 255, 204));
 		key.addFocusListener(new FocusListener() {
 			
 			public void focusLost(FocusEvent e) {
@@ -92,8 +95,8 @@ public class uploadUI extends JFrame  {
 			}
 		});
 		
-		key.setToolTipText("Search Key");
-		key.setText("Search Key");
+		key.setToolTipText("Video name");
+		key.setText("Video name");
 		key.setSize(600, 50);
 		keyPanel.add(key, BorderLayout.CENTER);
 		key.setColumns(50);
@@ -101,6 +104,7 @@ public class uploadUI extends JFrame  {
 		// poster
 		
 		imageUrl = new JTextField();
+		imageUrl.setBackground(new Color(255, 255, 204));
 		imageUrl.setToolTipText("Poster Url");
 		imageUrl.setText("Poster Url");
 		imageUrl.setSize(450, 50);
@@ -140,6 +144,7 @@ public class uploadUI extends JFrame  {
 		
 		// video
 		videoUrl = new JTextField();
+		videoUrl.setBackground(new Color(255, 255, 204));
 		videoUrl.setToolTipText("Video Url");
 		videoUrl.setText("Video Url");
 		videoUrl.setSize(500, 50);
