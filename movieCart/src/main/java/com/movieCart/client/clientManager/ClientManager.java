@@ -92,7 +92,7 @@ public class ClientManager {
 		streamWriter.close();
 		
 		mString = "rtp://@127.0.0.1:5555";
-		new Video(mString);
+		//new Video(mString);
 		
 	}
 }

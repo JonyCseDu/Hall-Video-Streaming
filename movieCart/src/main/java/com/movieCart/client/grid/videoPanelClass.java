@@ -206,8 +206,8 @@ public class videoPanelClass extends JPanel {
 			gbc_lblLength.gridx = 0;
 			gbc_lblLength.gridy = 1;
 			Info.add(lblLength, gbc_lblLength);
-			
-			JLabel lblTime = new JLabel("" + infoObject.getTime());
+			//String.format("%0.2lf", (infoObject.getTime()/60000.0));
+			JLabel lblTime = new JLabel("" + String.format("%.2f", (infoObject.getTime()/60000.0)) + " Min");
 			lblTime.setForeground(Color.GREEN);
 			GridBagConstraints gbc_lblTime = new GridBagConstraints();
 			gbc_lblTime.fill = GridBagConstraints.BOTH;
@@ -216,7 +216,7 @@ public class videoPanelClass extends JPanel {
 			gbc_lblTime.gridy = 1;
 			Info.add(lblTime, gbc_lblTime);
 			
-			JLabel lblResulation = new JLabel(infoObject.getDimension_x() + " * " + infoObject.getDimension_y());
+			JLabel lblResulation = new JLabel(""+infoObject.getSize() + " MB");
 			lblResulation.setForeground(Color.GREEN);
 			GridBagConstraints gbc_lblResulation = new GridBagConstraints();
 			gbc_lblResulation.fill = GridBagConstraints.BOTH;
@@ -277,7 +277,7 @@ public class videoPanelClass extends JPanel {
 			
 			public void mousePressed(MouseEvent e) {
 				System.out.println("opening Video : " + infoObject.getVideoName());
-				new Video(infoObject.getVideoName());
+				new Video(infoObject);
 				
 			}
 			
