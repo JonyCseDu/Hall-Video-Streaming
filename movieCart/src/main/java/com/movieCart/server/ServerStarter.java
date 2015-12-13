@@ -10,13 +10,13 @@ public class ServerStarter implements Runnable{
 	}
 	public static void main(String[] args){
 		Thread playerManager = new Thread(new ServerStarter(new PlayerManager(7100)));
-		Thread binaryManager = new Thread(new ServerStarter(new BinaryManager(8100)));
+		Thread uploadManager = new Thread(new ServerStarter(new UploadManager(8100)));
 		Thread gridManager = new Thread(new ServerStarter(new GridManager(9100)));
 		Thread userManager = new Thread(new ServerStarter(new UserManager(9200)));
 		
 		
 		playerManager.start();
-		binaryManager.start();
+		uploadManager.start();
 		gridManager.start();
 		userManager.start();
 	}

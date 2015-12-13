@@ -11,10 +11,10 @@ import java.util.Scanner;
 import javax.naming.ldap.StartTlsRequest;
 import javax.sound.sampled.Port;
 
-import com.movieCart.server.BinaryControl.BinaryReader;
-import com.movieCart.server.BinaryControl.GridReader;
-import com.movieCart.server.BinaryControl.UserReader;
-import com.movieCart.server.playerControl.Reader;
+import com.movieCart.server.readers.GridReader;
+import com.movieCart.server.readers.PlayerReader;
+import com.movieCart.server.readers.SignupLoginReader;
+import com.movieCart.server.readers.UploadReader;
 
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.condition.conditions.PausedCondition;
@@ -47,7 +47,7 @@ class PlayerManager extends ServerManager{
 			try {
 				Socket rcvedSocket = serverSocket.accept();
 				System.out.println("ip :" + rcvedSocket.getRemoteSocketAddress() + " port: " + rcvedSocket.getLocalPort());
-				new Reader(rcvedSocket).start();
+				new PlayerReader(rcvedSocket).start();
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -56,10 +56,10 @@ class PlayerManager extends ServerManager{
 	}
 }
 
-class BinaryManager extends ServerManager{	
+class UploadManager extends ServerManager{	
 	//boolean isFinished = false;
 	
-	public BinaryManager(int port){
+	public UploadManager(int port){
 		super(port);
 	}
 	
@@ -68,7 +68,7 @@ class BinaryManager extends ServerManager{
 			try {
 				Socket rcvedSocket = serverSocket.accept();
 				System.out.println("ip :" + rcvedSocket.getRemoteSocketAddress() + " port: " + rcvedSocket.getLocalPort());
-				new BinaryReader(rcvedSocket).start();
+				new UploadReader(rcvedSocket).start();
 			}catch(SocketTimeoutException e){
 //				if(isFinished) break;
 				System.out.println("timeout\n");
@@ -78,17 +78,7 @@ class BinaryManager extends ServerManager{
 				break;
 			}
 		}
-		// close serversocket
-//		try {
-//			serverSocket.close();
-//		} catch (IOException e){
-//			e.printStackTrace();
-//		}
 	}
-	
-//	void shutDown(){
-//		isFinished = true;
-//	}
 }
 
 class GridManager extends ServerManager{
@@ -125,7 +115,7 @@ class UserManager extends ServerManager{
 			try {
 				Socket rcvedSocket = serverSocket.accept();
 				System.out.println("ip :" + rcvedSocket.getRemoteSocketAddress() + " port: " + rcvedSocket.getLocalPort());
-				new UserReader(rcvedSocket).start();
+				new SignupLoginReader(rcvedSocket).start();
 			}catch(SocketTimeoutException e){
 				System.out.println("timeout\n");
 			}
