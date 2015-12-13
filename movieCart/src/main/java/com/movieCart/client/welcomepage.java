@@ -19,6 +19,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.movieCart.Objects.UploadPacket;
@@ -62,7 +63,7 @@ public class welcomepage extends JFrame  {
 		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
-		password = new JTextField();
+		password = new JPasswordField();
 		password.setBackground(UIManager.getColor("DesktopIcon.background"));
 		password.addFocusListener(new FocusListener() {
 			

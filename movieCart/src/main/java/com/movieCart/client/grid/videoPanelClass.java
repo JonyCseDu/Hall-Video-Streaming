@@ -185,6 +185,7 @@ public class videoPanelClass extends JPanel {
 			Info.setLayout(gbl_Info);
 			
 			JLabel lblName_1 = new JLabel("NAME     :");
+			lblName_1.setForeground(new Color(0, 128, 128));
 			GridBagConstraints gbc_lblName_1 = new GridBagConstraints();
 			gbc_lblName_1.anchor = GridBagConstraints.WEST;
 			gbc_lblName_1.insets = new Insets(0, 0, 5, 5);
@@ -205,6 +206,7 @@ public class videoPanelClass extends JPanel {
 			gbc_lblLength.insets = new Insets(0, 0, 5, 5);
 			gbc_lblLength.gridx = 0;
 			gbc_lblLength.gridy = 1;
+			lblLength.setForeground(new Color(0, 139, 139));
 			Info.add(lblLength, gbc_lblLength);
 			System.out.println("time_check : " + infoObject.getTime());
 			JLabel lblTime = new JLabel("" + String.format("%.2f", (infoObject.getTime()/60000.0)) + " Min");
@@ -225,6 +227,7 @@ public class videoPanelClass extends JPanel {
 			Info.add(lblResulation, gbc_lblResulation);
 			
 			JLabel lblSize = new JLabel("SIZE       :");
+			lblSize.setForeground(new Color(0, 139, 139));
 			GridBagConstraints gbc_lblSize = new GridBagConstraints();
 			gbc_lblSize.anchor = GridBagConstraints.WEST;
 			gbc_lblSize.insets = new Insets(0, 0, 0, 5);
