@@ -99,10 +99,10 @@ public class videoPanelClass extends JPanel {
 		try {
 
 			PosterName = infoObject.getPosterName();
-
 			VideoName = infoObject.getVideoName();
 			Dimention_X = infoObject.getDimension_x();
 			Dimention_Y = infoObject.getDimension_y();
+			
 
 			System.out.println("Info : " + PosterName + "  " + VideoName + "   " + Dimention_X + "  " + Dimention_Y);
 
@@ -206,7 +206,7 @@ public class videoPanelClass extends JPanel {
 			gbc_lblLength.gridx = 0;
 			gbc_lblLength.gridy = 1;
 			Info.add(lblLength, gbc_lblLength);
-			//String.format("%0.2lf", (infoObject.getTime()/60000.0));
+			System.out.println("time_check : " + infoObject.getTime());
 			JLabel lblTime = new JLabel("" + String.format("%.2f", (infoObject.getTime()/60000.0)) + " Min");
 			lblTime.setForeground(Color.GREEN);
 			GridBagConstraints gbc_lblTime = new GridBagConstraints();

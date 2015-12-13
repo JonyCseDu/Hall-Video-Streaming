@@ -64,7 +64,7 @@ public class GridReader extends Thread {
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile()) {
 				// serving ... 
-				if(key.length() == 0 || listOfFiles[i].getParent().startsWith(key)){
+				if(key.length() == 0 || listOfFiles[i].getName().startsWith(key)){
 					System.out.println("Found " + listOfFiles[i].getName());
 					GridObject object = new GridObject(listOfFiles[i].getName());
 					try {

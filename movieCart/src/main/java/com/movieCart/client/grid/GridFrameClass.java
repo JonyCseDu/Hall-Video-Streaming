@@ -39,6 +39,7 @@ public class GridFrameClass extends JFrame{
 	
 	public GridFrameClass(String key) {
 		super("Browse video");
+		System.out.println("key : " + key);
 		GridClientManager manager = new GridClientManager();
 		list = manager.request(new RequestObject("search", key));
 		create_gridFrame();
@@ -126,7 +127,7 @@ public class GridFrameClass extends JFrame{
 		gbl_Search.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		Search.setLayout(gbl_Search);
 		
-		Component textField = new JTextField();
+		final JTextField textField = new JTextField();
 		textField.setFont(new Font("Dialog", Font.PLAIN, 20));
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 0, 5);
@@ -143,7 +144,8 @@ public class GridFrameClass extends JFrame{
 			
 
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				new GridFrameClass(textField.getText());
+				setVisible(false);
 				
 			}
 		});
@@ -227,7 +229,7 @@ public class GridFrameClass extends JFrame{
 		}
 
 		mainpanel.setPreferredSize(new Dimension(900,400*(i/3) ));
-		this.setBounds(100, 100, 900, 800);
+		this.setBounds(100, 100, 1200, 800);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setVisible(true);
 		

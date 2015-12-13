@@ -120,10 +120,13 @@ public class InfoObject implements Serializable {
 			name = br.readLine();
 			posterName = br.readLine();
 			videoName = br.readLine();
-			size = br.read();
-			time = br.read();
-			dimension_x = br.read();
-			dimension_y = br.read();
+			size = Integer.valueOf(br.readLine());
+			time = Integer.valueOf(br.readLine());
+			System.out.println("VideoName : " + videoName);
+			System.out.println("Size : " + size);
+			System.out.println("time : " + time);
+			dimension_x = Integer.valueOf(br.readLine());
+			dimension_y = Integer.valueOf(br.readLine());
 			uploader = br.readLine();
 			
 			br.close();
