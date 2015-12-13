@@ -37,6 +37,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
+import java.awt.Font;
 
 public class videoPanelClass extends JPanel {
 
@@ -50,6 +51,7 @@ public class videoPanelClass extends JPanel {
 	String VideoName;
 	int Dimention_X;
 	int Dimention_Y;
+	private final JLabel lblLength = new JLabel("LENGTH :");
 
 	/*
 	 * GridObject object = gridObjects.get(i); InfoObject infoObject =
@@ -65,7 +67,7 @@ public class videoPanelClass extends JPanel {
 	 */
 
 	public videoPanelClass(GridObject object) {
-		setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		// TODO Auto-generated constructor stub
 		this.object = object;
 		this.infoObject = this.object.getInfoObject();
@@ -131,9 +133,9 @@ public class videoPanelClass extends JPanel {
 			this.setBounds(0, 0, 250, 400);
 			
 			GridBagLayout gbl_panel = new GridBagLayout();
-			gbl_panel.columnWidths = new int[]{0, 0};
+			gbl_panel.columnWidths = new int[]{85, 163, 0};
 			gbl_panel.rowHeights = new int[]{206, 83, 0};
-			gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+			gbl_panel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 			gbl_panel.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 			this.setLayout(gbl_panel);
 			
@@ -157,7 +159,8 @@ public class videoPanelClass extends JPanel {
 			ImageView.setBorder(null);
 			ImageView.setBackground(UIManager.getColor("Button.foreground"));
 			GridBagConstraints gbc_ImageView = new GridBagConstraints();
-			gbc_ImageView.insets = new Insets(0, 0, 5, 0);
+			gbc_ImageView.gridwidth = 2;
+			gbc_ImageView.insets = new Insets(0, 0, 5, 5);
 			gbc_ImageView.fill = GridBagConstraints.BOTH;
 			gbc_ImageView.gridx = 0;
 			gbc_ImageView.gridy = 0;
@@ -166,27 +169,74 @@ public class videoPanelClass extends JPanel {
 			JPanel Info = new JPanel();
 			Info.setBorder(null);
 			Info.setForeground(new Color(255, 0, 0));
-			Info.setBackground(UIManager.getColor("Button.background"));
+			Info.setBackground(Color.BLACK);
 			GridBagConstraints gbc_Info = new GridBagConstraints();
+			gbc_Info.gridwidth = 2;
+			gbc_Info.insets = new Insets(0, 0, 0, 5);
 			gbc_Info.fill = GridBagConstraints.BOTH;
 			gbc_Info.gridx = 0;
 			gbc_Info.gridy = 1;
 			this.add(Info, gbc_Info);
-			Info.setLayout(new GridLayout(4, 1, 0, 0));
+			GridBagLayout gbl_Info = new GridBagLayout();
+			gbl_Info.columnWidths = new int[]{76, 137, 0};
+			gbl_Info.rowHeights = new int[]{20, 20, 20, 0};
+			gbl_Info.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+			gbl_Info.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+			Info.setLayout(gbl_Info);
+			
+			JLabel lblName_1 = new JLabel("NAME     :");
+			GridBagConstraints gbc_lblName_1 = new GridBagConstraints();
+			gbc_lblName_1.anchor = GridBagConstraints.WEST;
+			gbc_lblName_1.insets = new Insets(0, 0, 5, 5);
+			gbc_lblName_1.gridx = 0;
+			gbc_lblName_1.gridy = 0;
+			Info.add(lblName_1, gbc_lblName_1);
 			
 			JLabel lblName = new JLabel(infoObject.getName());
-			Info.add(lblName);
+			lblName.setForeground(Color.GREEN);
+			GridBagConstraints gbc_lblName = new GridBagConstraints();
+			gbc_lblName.fill = GridBagConstraints.BOTH;
+			gbc_lblName.insets = new Insets(0, 0, 5, 0);
+			gbc_lblName.gridx = 1;
+			gbc_lblName.gridy = 0;
+			Info.add(lblName, gbc_lblName);
+			GridBagConstraints gbc_lblLength = new GridBagConstraints();
+			gbc_lblLength.anchor = GridBagConstraints.WEST;
+			gbc_lblLength.insets = new Insets(0, 0, 5, 5);
+			gbc_lblLength.gridx = 0;
+			gbc_lblLength.gridy = 1;
+			Info.add(lblLength, gbc_lblLength);
 			
 			JLabel lblTime = new JLabel("" + infoObject.getTime());
-			Info.add(lblTime);
+			lblTime.setForeground(Color.GREEN);
+			GridBagConstraints gbc_lblTime = new GridBagConstraints();
+			gbc_lblTime.fill = GridBagConstraints.BOTH;
+			gbc_lblTime.insets = new Insets(0, 0, 5, 0);
+			gbc_lblTime.gridx = 1;
+			gbc_lblTime.gridy = 1;
+			Info.add(lblTime, gbc_lblTime);
 			
 			JLabel lblResulation = new JLabel(infoObject.getDimension_x() + " * " + infoObject.getDimension_y());
-			Info.add(lblResulation);
+			lblResulation.setForeground(Color.GREEN);
+			GridBagConstraints gbc_lblResulation = new GridBagConstraints();
+			gbc_lblResulation.fill = GridBagConstraints.BOTH;
+			gbc_lblResulation.gridx = 1;
+			gbc_lblResulation.gridy = 2;
+			Info.add(lblResulation, gbc_lblResulation);
 			
-			JButton btnWatch = new JButton("WATCH");
-			btnWatch.setBackground(new Color(0, 255, 0));
-			btnWatch.setForeground(new Color(128, 0, 128));
-			Info.add(btnWatch);
+			JLabel lblSize = new JLabel("SIZE       :");
+			GridBagConstraints gbc_lblSize = new GridBagConstraints();
+			gbc_lblSize.anchor = GridBagConstraints.WEST;
+			gbc_lblSize.insets = new Insets(0, 0, 0, 5);
+			gbc_lblSize.gridx = 0;
+			gbc_lblSize.gridy = 2;
+			Info.add(lblSize, gbc_lblSize);
+//			
+//			JButton btnWatch = new JButton("WATCH");
+//			btnWatch.setFont(new Font("URW Bookman L", Font.BOLD, 14));
+//			btnWatch.setBackground(new Color(0, 255, 0));
+//			btnWatch.setForeground(Color.DARK_GRAY);
+//			Info.add(btnWatch);
 			
 			
 			
@@ -198,7 +248,7 @@ public class videoPanelClass extends JPanel {
 			
 			
 			//-----------------------------------------------------------------------------------------------------------------
-			this.setPreferredSize(new Dimension(250, 320));
+			this.setPreferredSize(new Dimension(250, 291));
 			this.setBackground(Color.magenta);
 
 			// JButton btnNewButton = new JButton("VIEW DETAILS");
